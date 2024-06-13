@@ -1,4 +1,7 @@
+
+
 const Categories = () => {
+
   return (
     <div className="flex justify-start">
       <div className="pt-3 cursor-pointer pb-4 flex justify-around items-center space-x-12">

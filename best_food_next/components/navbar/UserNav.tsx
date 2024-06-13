@@ -1,7 +1,9 @@
+
 const UserNav = () => {
+  
   return (
     <>
-      <div className="p-2 relative inline-block border rounded-full hover:bg-orange-300">
+      <div className="p-2 relative inline-block border rounded-full border border-gray hover:orange">
         <button className="flex items-center">
           {/* Menu icon */}
           <svg

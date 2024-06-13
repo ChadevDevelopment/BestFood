@@ -1,6 +1,8 @@
+
 const SearchFilters = () => {
+  
   return (
-    <div className="h-[48px] lg:h-[64px] flex flex-row items-center justify-between border rounded-full">
+    <div className="h-[48px] lg:h-[64px] flex flex-row items-center justify-between  border border-gray2 rounded-full">
       <input
         type="text"
         placeholder="Search..."
@@ -12,7 +14,7 @@ const SearchFilters = () => {
             <p className="  text-xs font-serif">Search</p>
           </div> */}
           <div className="p-2">
-            <button className="p-2  bg-bestfodd rounded-full text-white hover:bg-gray-100 transition">
+            <button className="p-2 rounded-full text-white hover:bg-gray transition">
               <svg
                 viewBox="0 0 24 24"
                 width="24px"
