@@ -33,7 +33,7 @@ module.exports = {
       zumthor: "#EDF5FF",
       socialicon: "#D1D8E0",
       orange: "#F86441",
-      gray: "#808080",
+      gray: "#4e4e4e",
       gray2: "#D3D3D3"
     },
     extend: {

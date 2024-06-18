@@ -32,14 +32,14 @@ const Navbar = () => {
           : "absolute bg-transparent"
       }`}
     >
-        <div className="max-w-[1500px] mx-auto px-18">
-          <div className="flex justify-between items-center">
+        <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0 lg:flex items-center justify-between relative">
+          <div className="w-full lg:w-4/4 flex items-center justify-between">
               <Link href="/">
-                <Image  src="/logo.png" 
-                    className="w-full" 
-                    alt="BestFoodLogo" 
-                    width={70} 
-                    height={50} 
+                <Image src="/images/logo/logo.png" 
+                  className="w-full" 
+                  alt="BestFoodLogo" 
+                  width={70} 
+                  height={50} 
                   />
               </Link>
             {/* Search Kismi */}
