@@ -1,6 +1,6 @@
-import Categories from "./components/categories/Categories";
-import Footer from "./components/footer/footer";
-import ProductList from "./components/productlist/ProductList";
+import Categories from "@/components/categories/Categories";
+import Footer from "@/components/footer/footer";
+import ProductList from "@/components/productlist/ProductList";
 
 export default function Home() {
   return (

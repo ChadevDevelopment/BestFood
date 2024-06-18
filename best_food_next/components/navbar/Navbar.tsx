@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import SearchFilters from "./SearchFilter";
 import UserNav from "./UserNav";
 import AddPropertyButton from "./AddPropertyButton";
+import SearchFilters from "./SearchFilter";
 
 const Navbar = () => {
   return (
@@ -13,10 +13,11 @@ const Navbar = () => {
             <Image src="/logo.png" alt="BestFoodLogo" width={70} height={50} />
           </Link>
           {/* Search Kismi */}
-          <div className="flex-grow flex justify-center">
+          {/* Search kismi gecici olarak comment aldim. */}
+          {/* <div className="flex-grow flex justify-center">
             <SearchFilters />
-          </div>
-          {/* home COntact Login About kismi */}
+          </div> */}
+          {/* home Contact Login About kismi */}
           <div className="flex items-center space-x-6">
             <AddPropertyButton />
             <UserNav />

@@ -1,4 +1,4 @@
-import OrderSideBar from "@/app/components/productlist/OrderSideBar";
+import OrderSideBar from "@/components/productlist/OrderSideBar";
 import Image from "next/image";
 
 const ProductDetailPage = () => {
