@@ -2,17 +2,19 @@
 import { FC, useCallback, useEffect, useState } from "react";
 
 interface ModelProps {
+  label: string;
   isOpen: boolean;
   onClose: () => void;
-  product: {
-    name: string;
-    imageUrl: string;
-    description: string;
-    price: number;
-  };
+  children: React.ReactNode;
+  // product: {
+  //   name: string;
+  //   imageUrl: string;
+  //   description: string;
+  //   price: number;
+  // };
 }
 
-const Modal: FC<ModelProps> = ({ isOpen, onClose, product }) => {
+const Modal: FC<ModelProps> = ({ isOpen, onClose, children, label }) => {
   const [showModal, setShowModal] = useState(isOpen);
 
   // isOpen degistiginde showModali useEffect ile guncelledim.
@@ -42,6 +44,7 @@ const Modal: FC<ModelProps> = ({ isOpen, onClose, product }) => {
             <header className="h-[60px] flex items-center p-6 rounded-t justify-center relative border-b">
               <div
                 onClick={handleClose}
+                className="p-3 absolute right-3 hover:bg-gray-300 rounded-full cursor-pointer"
                 // onKeyDown={(e) => {
                 //   if (e.key === "Enter") {
                 //     handleClose();
@@ -49,7 +52,6 @@ const Modal: FC<ModelProps> = ({ isOpen, onClose, product }) => {
                 // }}
                 // role="button"
                 // tabIndex={0}
-                className="p-3 absolute right-3 hover:bg-gray-300 rounded-full cursor-pointer"
               >
                 {/* icon for onClose */}
                 <svg
@@ -67,11 +69,12 @@ const Modal: FC<ModelProps> = ({ isOpen, onClose, product }) => {
                   />
                 </svg>
               </div>
-              <h2 className="text-lg font-mono ">{product.name}</h2>
+              <h2 className="text-lg font-mono ">{label}</h2>
             </header>
 
             <div className="p-6">
-              <img
+              {children}
+              {/* <img
                 src={product.imageUrl}
                 alt={product.name}
                 className="w-full rounded-xl mb-4"
@@ -81,7 +84,7 @@ const Modal: FC<ModelProps> = ({ isOpen, onClose, product }) => {
               </p>
               <p className="text-lg font-semibold text-gray-800">
                 ${product.price.toFixed(2)}
-              </p>
+              </p> */}
             </div>
           </div>
         </div>

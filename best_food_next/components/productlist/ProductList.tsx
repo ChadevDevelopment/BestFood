@@ -1,14 +1,12 @@
 import ProductListItem from "./ProductListItem";
+import products from "@/app/data/products.json";
 
 const ProductList = () => {
   return (
     <>
-      <ProductListItem />
-      <ProductListItem />
-      <ProductListItem />
-      <ProductListItem />
-      <ProductListItem />
-      <ProductListItem />
+      {products.map((product) => (
+        <ProductListItem key={product.id} product={product} />
+      ))}
     </>
   );
 };
