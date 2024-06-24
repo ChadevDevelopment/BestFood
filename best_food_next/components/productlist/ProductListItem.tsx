@@ -5,7 +5,7 @@ const ProductListItem = () => {
       <div className="relative overflow-hidden aspect-square rounded-xl">
         <Image
           fill
-          src="/pizza3.png"
+          src="/images/product/pizza3.png"
           sizes="(max-width:768px) 768px, (max-width:1200px) : 768px, 768px"
           className="hover:scale-105 object-cover transition h-full w-full"
           alt="pizza"
