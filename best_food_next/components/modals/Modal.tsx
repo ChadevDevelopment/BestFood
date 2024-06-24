@@ -1,4 +1,5 @@
 "use client";
+
 import { FC, useCallback, useEffect, useState } from "react";
 
 interface ModelProps {
@@ -7,6 +8,7 @@ interface ModelProps {
   onClose: () => void;
   onOrder: () => void;
   children: React.ReactNode;
+  className?: string;
 }
 
 const Modal: FC<ModelProps> = ({
@@ -15,6 +17,7 @@ const Modal: FC<ModelProps> = ({
   onOrder,
   children,
   label,
+  className,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
 
@@ -34,20 +37,22 @@ const Modal: FC<ModelProps> = ({
   return (
     <div
       onClick={handleClose}
-      className="flex items-center justify-center fixed inset-0 z-50 bg-black/70"
+      className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-[90%] md:[80%] lg:w-[700px] my-6 mx-auto h-auto "
+        className="relative w-[90%] md:[80%] lg:w-[700px] my-6 mx-auto h-auto"
       >
         <div
-          className={`translate duration-600 h-full ${
+          className={`translate duration-600 h-full  ${
             showModal
               ? "translate-y-0 opacity-100"
               : "translate-y-full opacity-10"
           }`}
         >
-          <div className="w-full h-auto rounded-xl relative flex flex-col bg-white">
+          <div
+            className={`w-full h-auto rounded-xl relative flex flex-col bg-white  ${className}`}
+          >
             {/* kapatma dugmesi */}
             <header className="h-[60px] flex items-center p-6 rounded-t justify-center relative border-b">
               <div
