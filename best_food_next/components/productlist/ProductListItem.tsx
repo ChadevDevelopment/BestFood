@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { FC } from "react";
+import LikeButton from "../likebutton/LikeButton";
 
-interface Product {
+export interface Product {
   id: number;
   name: string;
   description: string;
@@ -11,9 +12,14 @@ interface Product {
 
 interface ProductListItemProps {
   product: Product;
+  onClick: (product: Product) => void;
 }
 
-const ProductListItem: FC<ProductListItemProps> = ({ product }) => {
+const ProductListItem: FC<ProductListItemProps> = ({ product, onClick }) => {
+  const handleDetailButtonClick = () => {
+    onClick(product);
+  };
+
   return (
     <div className="cursor-pointer mr-6 mb-6">
       <div className="relative overflow-hidden aspect-square rounded-xl">
@@ -22,9 +28,11 @@ const ProductListItem: FC<ProductListItemProps> = ({ product }) => {
           alt={product.name}
           width={300}
           height={300}
-          // sizes="(max-width:768px) 768px, (max-width:1200px) : 768px, 768px"
           className="hover:scale-105 object-cover transition h-full w-full"
         />
+        <div className="absolute top-2 right-2">
+          <LikeButton />
+        </div>
       </div>
 
       <div className="mt-1">
@@ -36,7 +44,10 @@ const ProductListItem: FC<ProductListItemProps> = ({ product }) => {
       <div className="mt-3">
         <p className="text-md font-bold">CHF {product.price}</p>
       </div>
-      <button className="cursor-pointer mt-3 inline-block py-2 px-24 bg-orange-400 text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl">
+      <button
+        onClick={handleDetailButtonClick}
+        className="cursor-pointer mt-3 inline-block py-2 px-24 bg-orange-400 text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl"
+      >
         Detail Product
       </button>
     </div>

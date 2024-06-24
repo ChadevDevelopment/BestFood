@@ -5,16 +5,17 @@ interface ModelProps {
   label: string;
   isOpen: boolean;
   onClose: () => void;
+  onOrder: () => void;
   children: React.ReactNode;
-  // product: {
-  //   name: string;
-  //   imageUrl: string;
-  //   description: string;
-  //   price: number;
-  // };
 }
 
-const Modal: FC<ModelProps> = ({ isOpen, onClose, children, label }) => {
+const Modal: FC<ModelProps> = ({
+  isOpen,
+  onClose,
+  onOrder,
+  children,
+  label,
+}) => {
   const [showModal, setShowModal] = useState(isOpen);
 
   // isOpen degistiginde showModali useEffect ile guncelledim.
@@ -25,13 +26,20 @@ const Modal: FC<ModelProps> = ({ isOpen, onClose, children, label }) => {
   // modelin kapanmasi icin handleCLose kullandim.
   const handleClose = useCallback(() => {
     setShowModal(false);
+    onClose();
   }, [onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="flex items-center justify-center fixed inset-0 z-50 bg-black/70">
-      <div className="relative w-[90%] md:[80%] lg:w-[700px] my-6 mx-auto h-auto">
+    <div
+      onClick={handleClose}
+      className="flex items-center justify-center fixed inset-0 z-50 bg-black/70"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-[90%] md:[80%] lg:w-[700px] my-6 mx-auto h-auto "
+      >
         <div
           className={`translate duration-600 h-full ${
             showModal
@@ -45,13 +53,6 @@ const Modal: FC<ModelProps> = ({ isOpen, onClose, children, label }) => {
               <div
                 onClick={handleClose}
                 className="p-3 absolute right-3 hover:bg-gray-300 rounded-full cursor-pointer"
-                // onKeyDown={(e) => {
-                //   if (e.key === "Enter") {
-                //     handleClose();
-                //   }
-                // }}
-                // role="button"
-                // tabIndex={0}
               >
                 {/* icon for onClose */}
                 <svg
@@ -72,20 +73,29 @@ const Modal: FC<ModelProps> = ({ isOpen, onClose, children, label }) => {
               <h2 className="text-lg font-mono ">{label}</h2>
             </header>
 
-            <div className="p-6">
-              {children}
-              {/* <img
-                src={product.imageUrl}
-                alt={product.name}
-                className="w-full rounded-xl mb-4"
-              />
-              <p className="text-sm text-gray-600 mb-2">
-                {product.description}
-              </p>
-              <p className="text-lg font-semibold text-gray-800">
-                ${product.price.toFixed(2)}
-              </p> */}
-            </div>
+            <div className="p-6">{children}</div>
+            <footer className="p-6 border-t">
+              <button
+                onClick={onOrder}
+                className="py-2 px-4 bg-orange-400 text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl"
+              >
+                Add to Cart
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                  />
+                </svg>
+              </button>
+            </footer>
           </div>
         </div>
       </div>
