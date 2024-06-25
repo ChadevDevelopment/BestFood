@@ -1,9 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
 const OrderSideBar = () => {
   // Product price
-  const sizes = {
+  const sizes: { [key: string]: number } = {
     Small: 10,
     Medium: 20,
     Large: 30,
@@ -13,13 +13,16 @@ const OrderSideBar = () => {
   const [selectedSize, setSelectedSize] = useState("Small");
   const [quantity, setQuantity] = useState(1);
 
-  const totalPrice = selectedSize ? sizes[selectedSize] * quantity : 0;
+  const totalPrice =
+    selectedSize in sizes
+      ? sizes[selectedSize as keyof typeof sizes] * quantity
+      : 0;
 
-  const handleSizeChange = (event) => {
+  const handleSizeChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelectedSize(event.target.value);
   };
 
-  const handleQuantityChange = (event) => {
+  const handleQuantityChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuantity(parseInt(event.target.value));
   };
 
