@@ -5,13 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import menuData from "./menuData";
-import LanguageSwitcher from "./LanguageSwitcher";
-import { LanguageContext } from "@/app/context/languageContext";
-import { useContext } from "react";
 import DropDown from "../dropdown/dropdown";
 
 const Header = () => {
-  const { language } = useContext(LanguageContext);
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
 
@@ -111,9 +107,6 @@ const Header = () => {
           </nav>
           <div> 
             <DropDown />
-          </div>
-          <div>
-            <LanguageSwitcher />
           </div>
         </div>
       </div>
