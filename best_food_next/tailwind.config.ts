@@ -22,7 +22,7 @@ module.exports = {
       titlebg2: "#FFEAC2",
       white: "#FFFFFF",
       black: "#181C31",
-      blackho: "#2C3149",
+      blackho: "#000000",
       blacksection: "#1C2136",
       primary: "#006BFF",
       primaryho: "#0063EC",
@@ -32,9 +32,7 @@ module.exports = {
       alabaster: "#FBFBFB",
       zumthor: "#EDF5FF",
       socialicon: "#D1D8E0",
-      orange: "#F86441",
-      gray: "#808080",
-      gray2: "#D3D3D3"
+      orange: "#F86441"
     },
     extend: {
       fontSize: {
