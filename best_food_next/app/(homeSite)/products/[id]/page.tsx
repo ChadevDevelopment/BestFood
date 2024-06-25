@@ -7,7 +7,7 @@ const ProductDetailPage = () => {
       <div className="w-full h-[90vh] mb-4 overflow-hidden rounded-xl relative">
         <Image
           fill
-          src="/pizza1.jpg"
+          src="/categoriesImage/pizzaImage/pizza1.jpg"
           className="object-cover w-full h-full"
           alt="burgermenu"
         />
@@ -23,7 +23,7 @@ const ProductDetailPage = () => {
 
           <div className="py-6 flex items-center space-x-4">
             <Image
-              src="/user.png"
+              src="/images/user/user.png"
               width={40}
               height={40}
               className="rounded-full"
