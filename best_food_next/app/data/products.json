@@ -4,34 +4,34 @@
     "name": "Pizza Margerihata",
     "description": "Delicious pizza with chese and tomatoes",
     "price": 13.99,
-    "image": "/pizza2.png"
+    "image": "/categoriesImage/pizzaImage/pizza2.png"
   },
   {
     "id": 2,
     "name": "Burger",
     "description": "Classic burger with juicy patty.",
     "price": 12.99,
-    "image": "/burger.png"
+    "image": "/categoriesImage/burgerImage/burger.png"
   },
   {
     "id": 3,
     "name": "Pizza Pepperoni",
     "description": "Delicious pizza with pepperoni.",
     "price": 11.99,
-    "image": "/pizza1.jpg"
+    "image": "/categoriesImage/pizzaImage/pizza1.jpg"
   },
   {
-    "id": 3,
+    "id": 4,
     "name": "Pizza Pepperoni",
     "description": "Delicious pizza with pepperoni.",
     "price": 10.99,
-    "image": "/pizza1.jpg"
+    "image": "/categoriesImage/pizzaImage/pizza1.jpg"
   },
   {
-    "id": 3,
+    "id": 5,
     "name": "Pizza Pepperoni",
     "description": "Delicious pizza.",
     "price": 9.99,
-    "image": "/pizza3.png"
+    "image": "/categoriesImage/pizzaImage/pizza3.png"
   }
 ]

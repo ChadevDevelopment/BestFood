@@ -8,6 +8,7 @@ export interface Product {
   description: string;
   price: number;
   image: string;
+  category: string;
 }
 
 interface ProductListItemProps {
@@ -22,34 +23,33 @@ const ProductListItem: FC<ProductListItemProps> = ({ product, onClick }) => {
 
   return (
     <div className="cursor-pointer mr-6 mb-6">
-      <div className="relative overflow-hidden aspect-square rounded-xl">
-        <Image
-          src={product.image}
-          alt={product.name}
-          width={300}
-          height={300}
-          className="hover:scale-105 object-cover transition h-full w-full"
-        />
-        <div className="absolute top-2 right-2">
-          <LikeButton />
+      <div className="relative overflow-hidden rounded-xl flex flex-col h-full">
+        <div className="relative aspect-square">
+          <Image
+            src={product.image}
+            alt={product.name}
+            width={300}
+            height={300}
+            className="hover:scale-105 object-cover transition h-full w-full"
+          />
+          <div className="absolute top-2 right-2">
+            <LikeButton />
+          </div>
+        </div>
+        <div className="p-4 flex flex-col justify-start flex-grow">
+          <div>
+            <p className="text-xl font-bold">{product.name}</p>
+            <p className="text-xs font-bold mt-1">{product.description}</p>
+            <p className="text-md  mt-3">CHF {product.price}</p>
+          </div>
+          <button
+            onClick={handleDetailButtonClick}
+            className="cursor-pointer mt-3 py-2 px-20 bg-orange-400 text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl self-start"
+          >
+            Detail Product
+          </button>
         </div>
       </div>
-
-      <div className="mt-1">
-        <p className="text-xl font-bold">{product.name}</p>
-      </div>
-      <div className="mt-1">
-        <p className="text-xs font-bold">{product.description}</p>
-      </div>
-      <div className="mt-3">
-        <p className="text-md font-bold">CHF {product.price}</p>
-      </div>
-      <button
-        onClick={handleDetailButtonClick}
-        className="cursor-pointer mt-3 inline-block py-2 px-24 bg-orange-400 text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl"
-      >
-        Detail Product
-      </button>
     </div>
   );
 };

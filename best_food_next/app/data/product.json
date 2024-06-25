@@ -1,0 +1,164 @@
+{
+  "pizzas": [
+    {
+      "id": 1,
+      "name": "Pizza Margerihata",
+      "description": "Delicious pizza with cheese and tomatoes",
+      "price": 13.99,
+      "image": "/categoriesImage/pizzaImage/pizza2.png",
+      "category": "pizza"
+    },
+    {
+      "id": 3,
+      "name": "Pizza Pepperoni",
+      "description": "Delicious pizza with pepperoni.",
+      "price": 11.99,
+      "image": "/categoriesImage/pizzaImage/pizza1.jpg",
+      "category": "pizza"
+    },
+    {
+      "id": 4,
+      "name": "Pizza Pepperoni",
+      "description": "Delicious pizza with pepperoni.",
+      "price": 10.99,
+      "image": "/categoriesImage/pizzaImage/pizza1.jpg",
+      "category": "pizza"
+    },
+    {
+      "id": 5,
+      "name": "Pizza Pepperoni",
+      "description": "Delicious pizza.",
+      "price": 9.99,
+      "image": "/categoriesImage/pizzaImage/pizza3.png",
+      "category": "pizza"
+    }
+  ],
+  "burgers": [
+    {
+      "id": 1,
+      "name": "Burger1",
+      "description": "Classic burger with juicy patty.",
+      "price": 12.99,
+      "image": "/categoriesImage/burgerImage/burger1.png",
+      "category": "burger"
+    },
+    {
+      "id": 2,
+      "name": "Burger2",
+      "description": "Classic burger with juicy patty.",
+      "price": 9.99,
+      "image": "/categoriesImage/burgerImage/burger.png",
+      "category": "burger"
+    },
+    {
+      "id": 3,
+      "name": "Burger3",
+      "description": "Classic burger with juicy patty.",
+      "price": 10.99,
+      "image": "/categoriesImage/burgerImage/burger2.jpeg",
+      "category": "burger"
+    },
+    {
+      "id": 4,
+      "name": "Burger4",
+      "description": "Classic burger with juicy patty.",
+      "price": 11.99,
+      "image": "/categoriesImage/burgerImage/burger3.jpg",
+      "category": "burger"
+    }
+  ],
+  "fishs": [
+    {
+      "id": 1,
+      "name": "Bream",
+      "description": "Fresh and delicious fish.",
+      "price": 12.99,
+      "image": "/categoriesImage/fishImage/fish1.jpg",
+      "category": "fish"
+    },
+    {
+      "id": 2,
+      "name": "Salmon",
+      "description": "Fresh and delicious fish.",
+      "price": 9.99,
+      "image": "/categoriesImage/fishImage/fish2.png",
+      "category": "fish"
+    },
+    {
+      "id": 3,
+      "name": "Anchovy",
+      "description": "Fresh and delicious fish.",
+      "price": 10.99,
+      "image": "/categoriesImage/fishImage/fish3.png",
+      "category": "fish"
+    },
+    {
+      "id": 4,
+      "name": "Mackerel",
+      "description": "Fresh and delicious fish.",
+      "price": 11.99,
+      "image": "/categoriesImage/fishImage/fish4.png",
+      "category": "fish"
+    }
+  ],
+  "drinkswithalcohols": [
+    {
+      "id": 1,
+      "name": "Wotka",
+      "description": "Fresh cold drinks.",
+      "price": 8.99,
+      "image": "/categoriesImage/drinksalkoholImage/drinks1.jpeg",
+      "category": "drinkwithalcohol"
+    },
+    {
+      "id": 2,
+      "name": "Beer",
+      "description": "Fresh cold drinks.",
+      "price": 7.99,
+      "image": "/categoriesImage/drinksalkoholImage/drinks2.png",
+      "category": "drinkwithalcohol"
+    },
+    {
+      "id": 3,
+      "name": "Coctails",
+      "description": "Fresh cold drinks.",
+      "price": 10.99,
+      "image": "/categoriesImage/drinksalkoholImage/drinks3.jpg",
+      "category": "drinkwithalcohol"
+    }
+  ],
+  "drinkswithoutalcohol": [
+    {
+      "id": 1,
+      "name": "Fanta",
+      "description": "Fresh cold drinks.",
+      "price": 3.99,
+      "image": "/categoriesImage/drinksImage/drink1.jpg",
+      "category": "drinkwithoutalcohol"
+    },
+    {
+      "id": 2,
+      "name": "Fruit juice",
+      "description": "Fresh cold drinks.",
+      "price": 5.99,
+      "image": "/categoriesImage/drinksImage/drink2.jpeg",
+      "category": "drinkwithoutalcohol"
+    },
+    {
+      "id": 3,
+      "name": "Cold coffee",
+      "description": "Fresh cold drinks.",
+      "price": 2.99,
+      "image": "/categoriesImage/drinksImage/drink3.jpeg",
+      "category": "drinkwithoutalcohol"
+    },
+    {
+      "id": 4,
+      "name": "Tea",
+      "description": "Fresh cold drinks.",
+      "price": 1.99,
+      "image": "/categoriesImage/drinksImage/drink4.jpg",
+      "category": "drinkwithoutalcohol"
+    }
+  ]
+}
