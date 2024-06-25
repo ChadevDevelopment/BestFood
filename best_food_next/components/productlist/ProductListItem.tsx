@@ -44,7 +44,7 @@ const ProductListItem: FC<ProductListItemProps> = ({ product, onClick }) => {
           </div>
           <button
             onClick={handleDetailButtonClick}
-            className="cursor-pointer mt-3 py-2 px-20 bg-orange-400 text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl self-start"
+            className="cursor-pointer mt-3 py-2 px-20 bg-orange text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl self-start"
           >
             Detail Product
           </button>

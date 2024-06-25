@@ -82,7 +82,7 @@ const Modal: FC<ModelProps> = ({
             <footer className="p-6 border-t">
               <button
                 onClick={onOrder}
-                className="py-2 px-4 bg-orange-400 text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl"
+                className="py-2 px-4 bg-orange text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl"
               >
                 Add to Cart
                 <svg
