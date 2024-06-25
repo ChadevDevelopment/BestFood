@@ -34,7 +34,3 @@
 pre {
   @apply relative px-4 py-2 rounded-lg mb-2;
 }
-
-.carousel_img {
-  @apply absolute max-w-[100vw];
-
