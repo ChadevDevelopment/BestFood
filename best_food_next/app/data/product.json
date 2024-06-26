@@ -5,7 +5,7 @@
       "name": "Pizza Margerihata",
       "description": "Delicious pizza with cheese and tomatoes",
       "price": 13.99,
-      "image": "/categoriesImage/pizzaImage/pizza2.png",
+      "image": "/images/categories/pizza2.png",
       "category": "pizza"
     },
     {
@@ -13,7 +13,7 @@
       "name": "Pizza Pepperoni",
       "description": "Delicious pizza with pepperoni.",
       "price": 11.99,
-      "image": "/categoriesImage/pizzaImage/pizza1.jpg",
+      "image": "/images/categories/pizza1.jpg",
       "category": "pizza"
     },
     {
@@ -21,7 +21,7 @@
       "name": "Pizza Pepperoni",
       "description": "Delicious pizza with pepperoni.",
       "price": 10.99,
-      "image": "/categoriesImage/pizzaImage/pizza1.jpg",
+      "image": "/images/categories/pizza1.jpg",
       "category": "pizza"
     },
     {
@@ -29,7 +29,7 @@
       "name": "Pizza Pepperoni",
       "description": "Delicious pizza.",
       "price": 9.99,
-      "image": "/categoriesImage/pizzaImage/pizza3.png",
+      "image": "/images/categories/pizza3.png",
       "category": "pizza"
     }
   ],
@@ -39,7 +39,7 @@
       "name": "Burger1",
       "description": "Classic burger with juicy patty.",
       "price": 12.99,
-      "image": "/categoriesImage/burgerImage/burger1.png",
+      "image": "/images/categories/burger1.png",
       "category": "burger"
     },
     {
@@ -47,7 +47,7 @@
       "name": "Burger2",
       "description": "Classic burger with juicy patty.",
       "price": 9.99,
-      "image": "/categoriesImage/burgerImage/burger.png",
+      "image": "/images/categories/burger.png",
       "category": "burger"
     },
     {
@@ -55,7 +55,7 @@
       "name": "Burger3",
       "description": "Classic burger with juicy patty.",
       "price": 10.99,
-      "image": "/categoriesImage/burgerImage/burger2.jpeg",
+      "image": "/images/categories/burger2.jpeg",
       "category": "burger"
     },
     {
@@ -63,7 +63,7 @@
       "name": "Burger4",
       "description": "Classic burger with juicy patty.",
       "price": 11.99,
-      "image": "/categoriesImage/burgerImage/burger3.jpg",
+      "image": "/images/categories/burger3.jpg",
       "category": "burger"
     }
   ],
@@ -73,7 +73,7 @@
       "name": "Bream",
       "description": "Fresh and delicious fish.",
       "price": 12.99,
-      "image": "/categoriesImage/fishImage/fish1.jpg",
+      "image": "/images/categories/fish1.jpg",
       "category": "fish"
     },
     {
@@ -81,7 +81,7 @@
       "name": "Salmon",
       "description": "Fresh and delicious fish.",
       "price": 9.99,
-      "image": "/categoriesImage/fishImage/fish2.png",
+      "image": "/images/categories/fish2.png",
       "category": "fish"
     },
     {
@@ -89,7 +89,7 @@
       "name": "Anchovy",
       "description": "Fresh and delicious fish.",
       "price": 10.99,
-      "image": "/categoriesImage/fishImage/fish3.png",
+      "image": "/images/categories/fish3.png",
       "category": "fish"
     },
     {
@@ -97,17 +97,17 @@
       "name": "Mackerel",
       "description": "Fresh and delicious fish.",
       "price": 11.99,
-      "image": "/categoriesImage/fishImage/fish4.png",
+      "image": "/images/categories/fish4.png",
       "category": "fish"
     }
   ],
   "drinkswithalcohols": [
     {
       "id": 1,
-      "name": "Wotka",
+      "name": "Vodka",
       "description": "Fresh cold drinks.",
       "price": 8.99,
-      "image": "/categoriesImage/drinksalkoholImage/drinks1.jpeg",
+      "image": "/images/categories/drinks1.jpeg",
       "category": "drinkwithalcohol"
     },
     {
@@ -115,15 +115,15 @@
       "name": "Beer",
       "description": "Fresh cold drinks.",
       "price": 7.99,
-      "image": "/categoriesImage/drinksalkoholImage/drinks2.png",
+      "image": "/images/categories/drinks2.png",
       "category": "drinkwithalcohol"
     },
     {
       "id": 3,
-      "name": "Coctails",
+      "name": "Cocktails",
       "description": "Fresh cold drinks.",
       "price": 10.99,
-      "image": "/categoriesImage/drinksalkoholImage/drinks3.jpg",
+      "image": "/images/categories/drinks3.jpg",
       "category": "drinkwithalcohol"
     }
   ],
@@ -133,7 +133,7 @@
       "name": "Fanta",
       "description": "Fresh cold drinks.",
       "price": 3.99,
-      "image": "/categoriesImage/drinksImage/drink1.jpg",
+      "image": "/images/categories/drink1.jpg",
       "category": "drinkwithoutalcohol"
     },
     {
@@ -141,7 +141,7 @@
       "name": "Fruit juice",
       "description": "Fresh cold drinks.",
       "price": 5.99,
-      "image": "/categoriesImage/drinksImage/drink2.jpeg",
+      "image": "/images/categories/drink2.jpeg",
       "category": "drinkwithoutalcohol"
     },
     {
@@ -149,15 +149,15 @@
       "name": "Cold coffee",
       "description": "Fresh cold drinks.",
       "price": 2.99,
-      "image": "/categoriesImage/drinksImage/drink3.jpeg",
+      "image": "/images/categories/drink3.jpeg",
       "category": "drinkwithoutalcohol"
     },
     {
       "id": 4,
       "name": "Tea",
-      "description": "Fresh cold drinks.",
+      "description": "Fresh warm drinks.",
       "price": 1.99,
-      "image": "/categoriesImage/drinksImage/drink4.jpg",
+      "image": "/images/categories/drink4.jpg",
       "category": "drinkwithoutalcohol"
     }
   ]
