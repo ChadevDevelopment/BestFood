@@ -1,9 +1,7 @@
-
-
 const Categories = () => {
 
   return (
-    <div className="flex justify-start">
+    <div className="flex justify-center items-center">
       <div className="pt-3 cursor-pointer pb-4 flex justify-around items-center space-x-12">
         {/* for All Menu begin */}
         <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:border-gray-400 hover:opacity-90">
