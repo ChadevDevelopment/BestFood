@@ -5,6 +5,8 @@ import productsData from "@/app/data/product.json";
 import PizzaModal from "../modals/PizzaModal";
 import FishModal from "../modals/FishModal";
 import BurgerModal from "../modals/BurgerModal";
+import WithAlcoholModal from "../modals/WithAlcoholModal";
+import WithoutAlcoholModal from "../modals/WithoutAlcoholModal";
 
 const getAllProducts = () => {
   const { pizzas, burgers, fishs, drinkswithalcohols, drinkswithoutalcohol } =
@@ -68,6 +70,23 @@ const ProductList = () => {
           product={selectedProduct}
         />
       )}
+
+      {selectedProduct && selectedProduct.category === "drinkwithalcohol" && (
+        <WithAlcoholModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          product={selectedProduct}
+        />
+      )}
+
+      {selectedProduct &&
+        selectedProduct.category === "drinkwithoutalcohol" && (
+          <WithoutAlcoholModal
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+            product={selectedProduct}
+          />
+        )}
     </>
   );
 };
