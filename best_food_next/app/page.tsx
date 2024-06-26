@@ -1,6 +1,5 @@
 
 import Categories from "@/components/categories/Categories";
-import Footer from "@/components/footer/footer";
 import ProductList from "@/components/productlist/ProductList";
 
 export default function Home() {
@@ -11,8 +10,6 @@ export default function Home() {
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  ">
         <ProductList />
       </div>
-
-      <Footer />
     </main>
   );
 }
