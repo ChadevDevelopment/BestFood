@@ -1,6 +1,6 @@
 "use client";
-
 import { FC, useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface ModelProps {
   label: string;
@@ -19,6 +19,8 @@ const Modal: FC<ModelProps> = ({
   label,
   className,
 }) => {
+  const router = useRouter();
+
   const [showModal, setShowModal] = useState(isOpen);
 
   // isOpen degistiginde showModali useEffect ile guncelledim.
@@ -26,11 +28,16 @@ const Modal: FC<ModelProps> = ({
     setShowModal(isOpen);
   }, [isOpen]);
 
-  // modelin kapanmasi icin handleCLose kullandim.
+  // I used handleCLose to close the model.
   const handleClose = useCallback(() => {
     setShowModal(false);
     onClose();
   }, [onClose]);
+
+  const handleOrder = useCallback(() => {
+    onOrder();
+    router.push("/shopping-cart");
+  }, [onOrder, router]);
 
   if (!isOpen) return null;
 
@@ -81,7 +88,7 @@ const Modal: FC<ModelProps> = ({
             <div className="p-6">{children}</div>
             <footer className="p-6 border-t">
               <button
-                onClick={onOrder}
+                onClick={handleOrder}
                 className="py-2 px-4 bg-orange text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl"
               >
                 Add to Cart
