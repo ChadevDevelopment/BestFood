@@ -161,7 +161,10 @@ const ShoppingCartPage: FC = () => {
                 <div className="w-full lg:w-1/3 bg-gray-100 p-5">
                   <h3 className="font-light text-xl mb-5 mt-2 pt-1">Summary</h3>
                   <hr className="my-4" />
-                  <div className="flex justify-between mb-4"></div>
+                  <div className="flex justify-between mb-4">
+                    <h5 className="text-uppercase">items 3</h5>
+                    <h5>CHF {totalPrice}</h5>
+                  </div>
                   <h5 className="font-bold text-lg mb-3">Shipping</h5>
                   <div className="mb-4">
                     <select className="form-select block w-full border border-gray-300 px-3 py-2 rounded-lg">
