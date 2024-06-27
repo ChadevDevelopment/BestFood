@@ -78,9 +78,21 @@ const PizzaModal: FC<PizzaModalProps> = ({ isOpen, onClose, product }) => {
     setAmount((prev) => Math.max(1, prev + change));
   };
 
+  // Saved with handleOrder in LocalStorage
   const handleOrder = () => {
-    console.log("Ordered product:", product);
-    console.log("Selected extras:", extras);
+    const orderDetails = {
+      product,
+      extras,
+      amount,
+      totalPrice,
+    };
+
+    const existingCartItems = JSON.parse(
+      localStorage.getItem("cartItems") || "[]"
+    );
+    const updatedCartItems = [...existingCartItems, orderDetails];
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
     onClose();
   };
 
