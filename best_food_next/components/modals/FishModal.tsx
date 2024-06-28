@@ -78,12 +78,24 @@ const FishModal: FC<FishModalProps> = ({ isOpen, onClose, product }) => {
       extras,
       amount,
       totalPrice,
+      timestamp: Date.now(),
     };
 
     const existingCartItems = JSON.parse(
       localStorage.getItem("cartItems") || "[]"
     );
-    const updatedCartItems = [...existingCartItems, orderDetails];
+
+    const expirationTime = 3 * 60 * 60 * 1000; // 3 hour
+
+    const now = Date.now();
+
+    const updatedCartItems = existingCartItems.filter((item: any) => {
+      return now - item.timestamp <= expirationTime;
+    });
+    // added new order details
+    updatedCartItems.push(orderDetails);
+
+    // guncellenmos olani locale kaydettim.
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
 
     onClose();
