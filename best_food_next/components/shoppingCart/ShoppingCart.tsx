@@ -24,6 +24,7 @@ const ShoppingCartPage: FC = () => {
         // verilerin dogru bicimde alindigini kontrol etmek icin
         const validatedItems = parsedItems.map((item: any) => ({
           ...item,
+          id: item.product?.id || "Cannot find Id",
           name: item.product?.name || "Unknown Product",
           image: item.product?.image || "/Error.png",
           price: parseFloat(item.product?.price) || 0,
