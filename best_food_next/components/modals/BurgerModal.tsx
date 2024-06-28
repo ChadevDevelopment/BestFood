@@ -78,20 +78,6 @@ const FishModal: FC<BurgerModalProps> = ({ isOpen, onClose, product }) => {
     setAmount((prev) => Math.max(1, prev + change));
   };
 
-  const totalPrice = product
-    ? (
-        (product.price +
-          Object.keys(extras).reduce((total, key) => {
-            return (
-              total +
-              extras[key] *
-                (EXTRAS.find((extra) => extra.name === key)?.price || 0)
-            );
-          }, 0)) *
-        amount
-      ).toFixed(2)
-    : "0.0";
-
   // Saved with handleOrder in LocalStorage
   const handleOrder = () => {
     const orderDetails = {
@@ -109,6 +95,20 @@ const FishModal: FC<BurgerModalProps> = ({ isOpen, onClose, product }) => {
 
     onClose();
   };
+
+  const totalPrice = product
+    ? (
+        (product.price +
+          Object.keys(extras).reduce((total, key) => {
+            return (
+              total +
+              extras[key] *
+                (EXTRAS.find((extra) => extra.name === key)?.price || 0)
+            );
+          }, 0)) *
+        amount
+      ).toFixed(2)
+    : "0.0";
 
   return (
     <Modal

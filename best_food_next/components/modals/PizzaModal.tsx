@@ -91,6 +91,7 @@ const PizzaModal: FC<PizzaModalProps> = ({ isOpen, onClose, product }) => {
       localStorage.getItem("cartItems") || "[]"
     );
     const updatedCartItems = [...existingCartItems, orderDetails];
+    // guncellenmos olani locale kaydettim.
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
 
     onClose();

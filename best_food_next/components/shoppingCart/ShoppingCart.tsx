@@ -1,37 +1,53 @@
 "use client";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const ShoppingCartPage: FC = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Pizza Margarihata",
-      image: "/categoriesImage/pizzaImage/pizza1.jpg",
-      price: 44.0,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "Pizza Capricciosa",
-      image: "/categoriesImage/pizzaImage/pizza2.png",
-      price: 39.0,
-      quantity: 2,
-    },
-    {
-      id: 3,
-      name: "Pizza Quattro Stagioni",
-      image: "/categoriesImage/pizzaImage/pizza3.png",
-      price: 49.0,
-      quantity: 1,
-    },
-  ];
+interface Product {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+  amount: number;
+  totalPrice: number;
+}
 
-  const totalPrice = products.reduce(
-    (total, product) => total + product.price * product.quantity,
+const ShoppingCartPage: FC = () => {
+  const [cartItems, setCartItems] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const storedCartItems = localStorage.getItem("cartItems");
+
+    if (storedCartItems) {
+      try {
+        const parsedItems = JSON.parse(storedCartItems);
+        // verilerin dogru bicimde alindigini kontrol etmek icin
+        const validatedItems = parsedItems.map((item: any) => ({
+          ...item,
+          name: item.product?.name || "Unknown Product",
+          image: item.product?.image || "/Error.png",
+          price: parseFloat(item.product?.price) || 0,
+          amount: parseInt(item.amount) || 0,
+          totalPrice: parseFloat(item.totalPrice) || 0,
+        }));
+        setCartItems(validatedItems);
+      } catch (error) {
+        console.log("Error parsing cart items from localStorage", error);
+      }
+    }
+  }, []);
+
+  const totalPrice = cartItems.reduce(
+    (total, product) => total + (product.price || 0) * product.amount,
     0
   );
+
+  // for Product remove klick with Delete Svg
+  const removeItem = (id: number) => {
+    const updatedCartItems = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedCartItems);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+  };
 
   return (
     <section className="h-screen bg-purple">
@@ -43,10 +59,10 @@ const ShoppingCartPage: FC = () => {
                 <div className="w-full lg:w-2/3 p-5  bg-stroke">
                   <div className="flex justify-between items-center mb-5 border-b">
                     <h1 className="font-bold text-3xl">Shopping Cart</h1>
-                    <h6 className="text-muted">{products.length} items</h6>
+                    <h6 className="text-muted">{cartItems.length} items</h6>
                   </div>
                   {/* Product List */}
-                  {products.map((product) => (
+                  {cartItems.map((product) => (
                     <div
                       key={product.id}
                       className="flex justify-between items-center mb-6 border-b"
@@ -67,15 +83,13 @@ const ShoppingCartPage: FC = () => {
                       {/* Product price side */}
                       <div className="w-2/6">
                         <h6 className="font-bold">
-                          CHF {product.price.toFixed(2)}
+                          CHF {(product.price || 0).toFixed(2)}
                         </h6>
                       </div>
 
                       {/* Quantity side*/}
                       <div className="w-2/6 flex items-center">
-                        <button
-                          onClick={() => console.log("Decrease quantity")}
-                        >
+                        <button onClick={() => console.log("Decrease amount")}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 448 512"
@@ -87,12 +101,10 @@ const ShoppingCartPage: FC = () => {
                         <input
                           type="number"
                           min="0"
-                          defaultValue={product.quantity.toString()}
+                          defaultValue={(product.amount || 0).toString()}
                           className="form-control form-control-sm text-center w-10 mx-2"
                         />
-                        <button
-                          onClick={() => console.log("Increase quantity")}
-                        >
+                        <button onClick={() => console.log("Increase amount")}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 448 512"
@@ -106,13 +118,13 @@ const ShoppingCartPage: FC = () => {
                       {/* Total Amount side */}
                       <div className="w-1/6">
                         <h6 className="font-bold">
-                          CHF {(product.price * product.quantity).toFixed(2)}
+                          CHF {product.totalPrice.toFixed(2)}
                         </h6>
                       </div>
 
                       {/* Product delete side */}
                       <div className="w-1/6 text-center">
-                        <button onClick={() => console.log("Remove item")}>
+                        <button onClick={() => removeItem(product.id)}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -152,7 +164,7 @@ const ShoppingCartPage: FC = () => {
                           d="M21 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061A1.125 1.125 0 0 1 21 8.689v8.122ZM11.25 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061a1.125 1.125 0 0 1 1.683.977v8.122Z"
                         />
                       </svg>
-                      <span className="font-extrabold">Back to shop</span>
+                      <span className="font-extrabold">Back to shopping</span>
                     </Link>
                   </div>
                 </div>
@@ -162,8 +174,8 @@ const ShoppingCartPage: FC = () => {
                   <h3 className="font-light text-xl mb-5 mt-2 pt-1">Summary</h3>
                   <hr className="my-4" />
                   <div className="flex justify-between mb-4">
-                    <h5 className="text-uppercase">items 3</h5>
-                    <h5>CHF {totalPrice}</h5>
+                    <h5 className="text-uppercase">Items {cartItems.length}</h5>
+                    <h5>CHF {totalPrice.toFixed(2)}</h5>
                   </div>
                   <h5 className="font-bold text-lg mb-3">Shipping</h5>
                   <div className="mb-4">
@@ -195,7 +207,7 @@ const ShoppingCartPage: FC = () => {
                   <hr className="my-4" />
                   <div className="flex justify-between mb-5">
                     <h5 className="font-bold text-lg">Total price</h5>
-                    <h5 className="font-extrabold">CHF {totalPrice}</h5>
+                    <h5 className="font-bold">CHF {totalPrice.toFixed(2)}</h5>
                   </div>
                   <button
                     type="button"
