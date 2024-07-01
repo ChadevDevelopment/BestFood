@@ -165,10 +165,7 @@ const PizzaModal: FC<PizzaModalProps> = ({ isOpen, onClose, product }) => {
                 />
               </svg>
             </button>
-            <button
-              onClick={() => handleExtraChange(extra.name, -1)}
-              className=""
-            >
+            <button onClick={() => handleExtraChange(extra.name, -1)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

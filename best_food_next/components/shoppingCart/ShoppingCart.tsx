@@ -10,6 +10,7 @@ interface Product {
   price: number;
   amount: number;
   totalPrice: number;
+  extras: Record<string, number>;
 }
 
 const ShoppingCartPage: FC = () => {
@@ -30,6 +31,7 @@ const ShoppingCartPage: FC = () => {
           price: parseFloat(item.product?.price) || 0,
           amount: parseInt(item.amount) || 0,
           totalPrice: parseFloat(item.totalPrice) || 0,
+          extras: item.extras || {},
         }));
         setCartItems(validatedItems);
       } catch (error) {
@@ -50,8 +52,27 @@ const ShoppingCartPage: FC = () => {
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   };
 
+  // for decrease and increase button dynamically
+  const handleAmountChange = (id: number, change: number) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) => {
+        if (item.id === id) {
+          const newAmount = Math.max(1, item.amount + change);
+          const ingredientPrice = Object.values(item.extras).reduce(
+            (acc, val) => acc + val,
+            0
+          );
+          const newtotalPrice = (item.price + ingredientPrice) * newAmount; // Yeni toplam fiyatı hesapla
+
+          return { ...item, amount: newAmount, totalPrice: newtotalPrice };
+        }
+        return item;
+      })
+    );
+  };
+
   return (
-    <section className="h-screen bg-purple">
+    <section className="h-screen bg-black">
       <div className="container mx-auto py-5 h-full">
         <div className="flex justify-center items-center h-full">
           <div className="w-full">
@@ -79,6 +100,13 @@ const ShoppingCartPage: FC = () => {
                       </div>
                       <div className="w-1/3">
                         <h6 className="font-bold">{product.name}</h6>
+                        {Object.entries(product.extras).map(
+                          ([extraName, quantity]) => (
+                            <p key={extraName}>
+                              {extraName}: {quantity}
+                            </p>
+                          )
+                        )}
                       </div>
 
                       {/* Product price side */}
@@ -90,7 +118,9 @@ const ShoppingCartPage: FC = () => {
 
                       {/* Quantity side*/}
                       <div className="w-2/6 flex items-center">
-                        <button onClick={() => console.log("Decrease amount")}>
+                        <button
+                          onClick={() => handleAmountChange(product.id, -1)}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 448 512"
@@ -102,10 +132,19 @@ const ShoppingCartPage: FC = () => {
                         <input
                           type="number"
                           min="0"
-                          defaultValue={(product.amount || 0).toString()}
+                          value={product.amount}
+                          onChange={(e) =>
+                            handleAmountChange(
+                              product.id,
+                              parseInt(e.target.value) - product.amount
+                            )
+                          }
+                          // defaultValue={(product.amount || 0).toString()}
                           className="form-control form-control-sm text-center w-10 mx-2"
                         />
-                        <button onClick={() => console.log("Increase amount")}>
+                        <button
+                          onClick={() => handleAmountChange(product.id, +1)}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 448 512"
