@@ -1,11 +1,10 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import axios from 'axios';
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-// import SectionHeaderTwo from "../Common/SectionHeaderTwo";
-// import ReCAPTCHA from "react-google-recaptcha";
 import Image from "next/image";
 
 const Contact = () => {
@@ -74,13 +73,6 @@ const Contact = () => {
     <>
       <section id="support" className="py-20 lg:py-25 xl:py-30">
         <div className="mx-auto max-w-c-1390 px-7 md:px-8 2xl:px-5">
-          {/* <SectionHeaderTwo
-            headerInfo={{
-              title: "",
-              description: ``,
-            }}
-          /> */}
-
           <div className="flex flex-wrap md:flex-nowrap flex-col-reverse md:flex-row gap-8 xl:gap-20 md:justify-between">
             <motion.div
               variants={{
@@ -163,8 +155,6 @@ const Contact = () => {
                   ></textarea>
                 </div>
                 
-                {/* <ReCAPTCHA className="w-full px-4" sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!} onChange={handleCaptchaChange} /> */}
-
                 <div className="flex flex-wrap xl:justify-between p-1">
                   <button disabled={!validateForm() || isSubmitting || !captcha}
                       className={`inline-flex items-center gap-2.5 bg-black hover:bg-blackho ease-in-out duration-300 font-medium text-white rounded-sm px-6 py-3
