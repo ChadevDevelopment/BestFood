@@ -103,7 +103,7 @@ const Signup = () => {
             <div className="mb-10 flex items-center justify-center">
               <span className="hidden h-[1px] w-full max-w-[200px] bg-stroke sm:block"></span>
               <p className="text-body-color w-full px-5 text-center text-base">
-                Or, Sign-Up with your email
+                Or
               </p>
               <span className="hidden h-[1px] w-full max-w-[200px] bg-stroke sm:block"></span>
             </div>
