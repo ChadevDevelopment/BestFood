@@ -36,17 +36,17 @@ const ProductListItem: FC<ProductListItemProps> = ({ product, onClick }) => {
             <LikeButton />
           </div>
         </div>
-        <div className="p-4 flex flex-col justify-start flex-grow">
+        <div className="p-1 flex flex-col justify-start flex-grow">
           <div>
-            <p className="text-xl font-bold">{product.name}</p>
-            <p className="text-xs font-bold mt-1">{product.description}</p>
-            <p className="text-md  mt-3">CHF {product.price}</p>
+            <p className="text-md font-bold">{product.name}</p>
+            <p className="text-sm font-bold mt-1">{product.description}</p>
+            <p className="text-xs mt-3">CHF {product.price}</p>
           </div>
           <button
             onClick={handleDetailButtonClick}
-            className="cursor-pointer mt-3 py-2 px-20 bg-orange text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl self-start"
+            className="cursor-pointer mt-4 py-2 px-20 bg-black text-white font-sm hover:bg-blackho rounded-xl items-center"
           >
-            Detail Product
+           Show more 
           </button>
         </div>
       </div>

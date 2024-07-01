@@ -37,14 +37,15 @@ const Modal: FC<ModelProps> = ({
   return (
     <div
       onClick={handleClose}
-      className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center"
+      className="fixed insert-0 flex items-center justify-center transform overflow-hidden rounded-2xl bg-white 
+      max-w-lg sm:max-w-2xl sm:w-full p-6 text-left align-middle shadow-xl transition-all"
     >
       <div
         onClick={(e) => e.stopPropagation()}
         className="relative w-[90%] md:[80%] lg:w-[700px] my-6 mx-auto h-auto"
       >
         <div
-          className={`translate duration-600 h-full  ${
+          className={`translate duration-300 h-full  ${
             showModal
               ? "translate-y-0 opacity-100"
               : "translate-y-full opacity-10"
@@ -57,7 +58,7 @@ const Modal: FC<ModelProps> = ({
             <header className="h-[60px] flex items-center p-6 rounded-t justify-center relative border-b">
               <div
                 onClick={handleClose}
-                className="p-3 absolute right-3 hover:bg-gray-300 rounded-full cursor-pointer"
+                className="p-3 absolute right-3 hover:bg-black rounded-full cursor-pointer"
               >
                 {/* icon for onClose */}
                 <svg
@@ -75,14 +76,14 @@ const Modal: FC<ModelProps> = ({
                   />
                 </svg>
               </div>
-              <h2 className="text-lg font-mono ">{label}</h2>
+              <h2 className="text-lg font-sm">{label}</h2>
             </header>
 
             <div className="p-6">{children}</div>
             <footer className="p-6 border-t">
               <button
                 onClick={onOrder}
-                className="py-2 px-4 bg-orange text-white font-mono hover:font-extrabold hover:bg-orange-500 rounded-xl"
+                className="py-2 px-4 bg-black text-white font-sm hover:font-extrabold hover:bg-black rounded-xl"
               >
                 Add to Cart
                 <svg

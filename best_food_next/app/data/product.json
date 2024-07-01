@@ -2,7 +2,7 @@
   "pizzas": [
     {
       "id": 1,
-      "name": "Pizza Margerihata",
+      "name": "Pizza Margeritha",
       "description": "Delicious pizza with cheese and tomatoes",
       "price": 13.99,
       "image": "/images/categories/pizza2.png",

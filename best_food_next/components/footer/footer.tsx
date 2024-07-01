@@ -44,7 +44,7 @@ const Footer = () => {
                     className="px-1"
                   />
                 </Link>
-                <p className="text-sm pt-6 pb-2 px-3 text-gray">
+                <p className="text-sm pt-6 pb-2 px-1 text-gray">
                   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
                   sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
                   sed diam voluptua.

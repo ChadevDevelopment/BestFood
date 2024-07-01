@@ -3,10 +3,10 @@
 const Categories = () => {
 
   return (
-    <div className="flex justify-start">
-      <div className="pt-3 cursor-pointer pb-4 flex justify-around items-center space-x-12">
+    <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center py-2 cursor-pointer gap-24">
         {/* for All Menu begin */}
-        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:border-gray-400 hover:opacity-90">
+        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:text-black hover:opacity-90">
           {/* for All Menu  Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@ const Categories = () => {
         </div>
         {/* for All Menu finish */}
         {/* for Pizza Menu begin */}
-        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:border-gray-400 hover:opacity-90">
+        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:text-black hover:opacity-90">
           {/* for Pizza Menu  Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ const Categories = () => {
         {/* for Pizza Menu finish */}
 
         {/* for  Burger Menu begin */}
-        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:border-gray-400 hover:opacity-90">
+        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:text-black hover:opacity-90">
           {/* for Burger Menu  Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@ const Categories = () => {
         {/* for  Burger Menu finish */}
 
         {/* for  Soup Menu begin */}
-        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:border-gray-400 hover:opacity-90">
+        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:text-black hover:opacity-90">
           {/* for Soup Menu  Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@ const Categories = () => {
         </div>
         {/* for  Soup Menu finish */}
         {/* for  Drinks with alcohol Menu begin */}
-        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:border-gray-400 hover:opacity-90">
+        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:text-black hover:opacity-90">
           {/* for Drinks with alcohol Menu  Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@ const Categories = () => {
         </div>
         {/* for  Drinks with alcohol Menu finish */}
         {/* for  Drinks without alcohol Menu begin */}
-        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:border-gray-400 hover:opacity-90">
+        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:text-black hover:opacity-90">
           {/* for Drinks with alcohol Menu  Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +93,7 @@ const Categories = () => {
         {/* for  Drinks without alcohol Menu finish */}
 
         {/* for  Fish Menu begin */}
-        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:border-gray-400 hover:opacity-90">
+        <div className="pb-4 flex flex-col items-center space-y-2 border-b-2 border-white opacity-60 hover:text-black hover:opacity-90">
           {/* for Drinks with alcohol Menu  Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"

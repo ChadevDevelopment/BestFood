@@ -27,8 +27,8 @@ const OrderSideBar = () => {
   };
 
   return (
-    <aside className="mt-4 p-6 col-span-2 rounded-xl border border-orange-500 shadow-2xl">
-      <div className="mb-6 p-3 border border-orange-500 rounded-xl">
+    <aside className="mt-4 p-6 col-span-2 rounded-xl border border-black shadow-2xl">
+      <div className="mb-6 p-3 border border-black rounded-xl">
         <input
           type="number"
           min="1"
@@ -38,8 +38,8 @@ const OrderSideBar = () => {
           onChange={handleQuantityChange}
         />
       </div>
-      <div className="mb-6 p-3 border border-orange-500 rounded-xl">
-        <label className="block text-sm font-medium text-orange-500 mb-1">
+      <div className="mb-6 p-3 border border-black rounded-xl">
+        <label className="block text-sm font-medium text-black mb-1">
           Please select size...
         </label>
         <select
@@ -57,7 +57,7 @@ const OrderSideBar = () => {
       </div>
 
       <h2 className="mb-5 text-2xl">${sizes[selectedSize]} Pizza price</h2>
-      <button className="w-full mb-6 py-6 text-center font-extrabold text-white bg-red-500 rounded-2xl hover:bg-orange-400 transition ">
+      <button className="w-full mb-6 py-6 text-center font-extrabold text-white bg-red-500 rounded-2xl hover:black transition ">
         Order
       </button>
 
