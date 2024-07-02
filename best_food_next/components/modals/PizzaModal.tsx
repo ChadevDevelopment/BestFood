@@ -88,9 +88,10 @@ const PizzaModal: FC<PizzaModalProps> = ({ isOpen, onClose, product }) => {
       timestamp: Date.now(),
     };
 
-    const existingCartItems = JSON.parse(
-      localStorage.getItem("cartItems") || "[]"
-    );
+    const existingCartItemsRaw = localStorage.getItem("cartItems");
+    const existingCartItems = existingCartItemsRaw
+      ? JSON.parse(existingCartItemsRaw)
+      : [];
 
     const expirationTime = 3 * 60 * 60 * 1000; // 3 hour
 

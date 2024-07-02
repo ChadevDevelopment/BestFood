@@ -2,6 +2,10 @@
 import React, { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Modal from "../modals/Modal";
+import PizzaModal from "../modals/PizzaModal";
+import BurgerModal from "../modals/BurgerModal";
+import FishModal from "../modals/FishModal";
 
 interface Product {
   id: number;
@@ -11,13 +15,17 @@ interface Product {
   amount: number;
   totalPrice: number;
   extras: Record<string, number>;
+  description: string;
+  category: string;
 }
 
 const ShoppingCartPage: FC = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    const storedCartItems = localStorage.getItem("cartItems");
+    const storedCartItems = localStorage.getItem("cartItems") || "[]";
 
     if (storedCartItems) {
       try {
@@ -32,6 +40,7 @@ const ShoppingCartPage: FC = () => {
           amount: parseInt(item.amount) || 0,
           totalPrice: parseFloat(item.totalPrice) || 0,
           extras: item.extras || {},
+          category: item.product?.category || "Unknown Category",
         }));
         setCartItems(validatedItems);
       } catch (error) {
@@ -52,23 +61,27 @@ const ShoppingCartPage: FC = () => {
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   };
 
-  // for decrease and increase button dynamically
-  const handleAmountChange = (id: number, change: number) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) => {
-        if (item.id === id) {
-          const newAmount = Math.max(1, item.amount + change);
-          const ingredientPrice = Object.values(item.extras).reduce(
-            (acc, val) => acc + val,
-            0
-          );
-          const newtotalPrice = (item.price + ingredientPrice) * newAmount; // Yeni toplam fiyatı hesapla
+  // for Product edit klick with edit Svg
+  const handleEditClick = (product: Product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
 
-          return { ...item, amount: newAmount, totalPrice: newtotalPrice };
-        }
-        return item;
-      })
-    );
+    // I got selectedProduct from LocalStorage
+    const storedSelectedProduct = localStorage.getItem("selectedProduct");
+    if (storedSelectedProduct) {
+      const parsedSelectedProduct = JSON.parse(storedSelectedProduct);
+      setSelectedProduct(parsedSelectedProduct.product);
+    } else {
+      console.error("SelectedProduct not found in localStorage");
+    }
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleOrder = () => {
+    console.log("Order placed for:", selectedProduct);
+    setIsModalOpen(false);
   };
 
   return (
@@ -100,13 +113,14 @@ const ShoppingCartPage: FC = () => {
                       </div>
                       <div className="w-1/3">
                         <h6 className="font-bold">{product.name}</h6>
-                        {Object.entries(product.extras).map(
-                          ([extraName, quantity]) => (
+                        {/* I only brought ingredients of the customer's choice. */}
+                        {Object.entries(product.extras)
+                          .filter(([extraName, quantity]) => quantity > 0)
+                          .map(([extraName, quantity]) => (
                             <p key={extraName}>
                               {extraName}: {quantity}
                             </p>
-                          )
-                        )}
+                          ))}
                       </div>
 
                       {/* Product price side */}
@@ -117,7 +131,7 @@ const ShoppingCartPage: FC = () => {
                       </div>
 
                       {/* Quantity side*/}
-                      <div className="w-2/6 flex items-center">
+                      {/* <div className="w-2/6 flex items-center">
                         <button
                           onClick={() => handleAmountChange(product.id, -1)}
                         >
@@ -151,6 +165,25 @@ const ShoppingCartPage: FC = () => {
                             className="w-3 h-3"
                           >
                             <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                          </svg>
+                        </button>
+                      </div> */}
+                      {/* for Edit Button */}
+                      <div className="w-2/6 text-center">
+                        <button onClick={() => handleEditClick(product)}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="size-6 text-orange"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                            />
                           </svg>
                         </button>
                       </div>
@@ -262,6 +295,39 @@ const ShoppingCartPage: FC = () => {
           </div>
         </div>
       </div>
+      {isModalOpen && selectedProduct && (
+        <Modal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onOrder={handleOrder}
+          label={`${selectedProduct.name}`}
+          className="custom-modal-class"
+        >
+          <div>
+            {selectedProduct.category === "pizza" && (
+              <PizzaModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                product={selectedProduct}
+              />
+            )}
+            {selectedProduct.category === "burger" && (
+              <BurgerModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                product={selectedProduct}
+              />
+            )}
+            {selectedProduct.category === "fish" && (
+              <FishModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                product={selectedProduct}
+              />
+            )}
+          </div>
+        </Modal>
+      )}
     </section>
   );
 };

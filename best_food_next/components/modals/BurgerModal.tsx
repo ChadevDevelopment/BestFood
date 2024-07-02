@@ -42,7 +42,7 @@ interface BurgerModalProps {
   product: Product;
 }
 
-const FishModal: FC<BurgerModalProps> = ({ isOpen, onClose, product }) => {
+const BurgerModal: FC<BurgerModalProps> = ({ isOpen, onClose, product }) => {
   const [extras, setExtras] = useState<Record<string, number>>({
     Cheddar: 0,
     Kofte: 0,
@@ -273,4 +273,4 @@ const FishModal: FC<BurgerModalProps> = ({ isOpen, onClose, product }) => {
   );
 };
 
-export default FishModal;
+export default BurgerModal;
