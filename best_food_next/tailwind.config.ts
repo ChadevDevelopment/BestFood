@@ -32,7 +32,8 @@ module.exports = {
       alabaster: "#FBFBFB",
       zumthor: "#EDF5FF",
       socialicon: "#D1D8E0",
-      orange: "#F86441"
+      orange: "#F86441",
+      purple: "#800080",
     },
     extend: {
       fontSize: {

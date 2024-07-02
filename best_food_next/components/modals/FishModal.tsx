@@ -57,12 +57,6 @@ const FishModal: FC<FishModalProps> = ({ isOpen, onClose, product }) => {
     setAmount((prev) => Math.max(1, prev + change));
   };
 
-  const handleOrder = () => {
-    console.log("Ordered product:", product);
-    console.log("Selected extras:", extras);
-    onClose();
-  };
-
   const totalPrice = product
     ? (
         (product.price +
@@ -76,6 +70,36 @@ const FishModal: FC<FishModalProps> = ({ isOpen, onClose, product }) => {
         amount
       ).toFixed(2)
     : "0.0";
+
+  // Saved with handleOrder in LocalStorage
+  const handleOrder = () => {
+    const orderDetails = {
+      product,
+      extras,
+      amount,
+      totalPrice,
+      timestamp: Date.now(),
+    };
+
+    const existingCartItems = JSON.parse(
+      localStorage.getItem("cartItems") || "[]"
+    );
+
+    const expirationTime = 3 * 60 * 60 * 1000; // 3 hour
+
+    const now = Date.now();
+
+    const updatedCartItems = existingCartItems.filter((item: any) => {
+      return now - item.timestamp <= expirationTime;
+    });
+    // added new order details
+    updatedCartItems.push(orderDetails);
+
+    // guncellenmos olani locale kaydettim.
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
+    onClose();
+  };
 
   return (
     <Modal

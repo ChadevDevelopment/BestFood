@@ -78,9 +78,34 @@ const PizzaModal: FC<PizzaModalProps> = ({ isOpen, onClose, product }) => {
     setAmount((prev) => Math.max(1, prev + change));
   };
 
+  // Saved with handleOrder in LocalStorage
   const handleOrder = () => {
-    console.log("Ordered product:", product);
-    console.log("Selected extras:", extras);
+    const orderDetails = {
+      product,
+      extras,
+      amount,
+      totalPrice,
+      timestamp: Date.now(),
+    };
+
+    const existingCartItemsRaw = localStorage.getItem("cartItems");
+    const existingCartItems = existingCartItemsRaw
+      ? JSON.parse(existingCartItemsRaw)
+      : [];
+
+    const expirationTime = 3 * 60 * 60 * 1000; // 3 hour
+
+    const now = Date.now();
+
+    const updatedCartItems = existingCartItems.filter((item: any) => {
+      return now - item.timestamp <= expirationTime;
+    });
+    // added new order details
+    updatedCartItems.push(orderDetails);
+
+    // guncellenmos olani locale kaydettim.
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
     onClose();
   };
 
@@ -141,10 +166,7 @@ const PizzaModal: FC<PizzaModalProps> = ({ isOpen, onClose, product }) => {
                 />
               </svg>
             </button>
-            <button
-              onClick={() => handleExtraChange(extra.name, -1)}
-              className=""
-            >
+            <button onClick={() => handleExtraChange(extra.name, -1)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
