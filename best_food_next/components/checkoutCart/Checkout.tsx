@@ -40,7 +40,7 @@ const CheckoutPage = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto p-4 bg-manatee">
+    <div className="max-w-screen-xl mx-auto p-4 bg-manatee rounded-xl">
       <h1 className="text-2xl text-center text-white font-bold mb-5">
         Checkout
       </h1>

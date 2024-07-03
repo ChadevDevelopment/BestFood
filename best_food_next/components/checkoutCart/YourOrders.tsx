@@ -1,4 +1,7 @@
-import React, { FC } from "react";
+"use client";
+import React, { FC, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Product } from "../shoppingCart/ShoppingCart";
 
 interface YourOrder {
   formData: any;
@@ -10,6 +13,43 @@ interface YourOrder {
 }
 
 const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
+  const router = useRouter(); /*to redirect to the myorders page*/
+  const [cartItems, setCartItems] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const storedCartItems = localStorage.getItem("cartItems") || "[]";
+
+    if (storedCartItems) {
+      try {
+        const parsedItems = JSON.parse(storedCartItems);
+        // verilerin dogru bicimde alindigini kontrol etmek icin
+        const validatedItems = parsedItems.map((item: any) => ({
+          ...item,
+          id: item.product?.id || "Cannot find Id",
+          name: item.product?.name || "Unknown Product",
+          image: item.product?.image || "/Error.png",
+          price: parseFloat(item.product?.price) || 0,
+          amount: parseInt(item.amount) || 0,
+          totalPrice: parseFloat(item.totalPrice) || 0,
+          extras: item.extras || {},
+          category: item.product?.category || "Unknown Category",
+        }));
+        setCartItems(validatedItems);
+      } catch (error) {
+        console.log("Error parsing cart items from localStorage", error);
+      }
+    }
+  }, []);
+
+  const handleMyOrders = () => {
+    router.push("/myorders");
+  };
+
+  const totalAmount = cartItems.reduce(
+    (total, product) => total + (product.totalPrice || 0),
+    0
+  );
+
   return (
     <div className="bg-titlebg2 p-4 rounded shadow-md mb-4 md:w-2/5 md:ml-2">
       <h2 className="text-lg font-semibold mb-4">Your Orders</h2>
@@ -72,15 +112,40 @@ const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
       <div>
         <div className="mb-4 ">
           <h3 className="text-lg font-semibold mb-2 ">Product</h3>
-          <table className="w-full">
+          <table className="w-full ">
             <tbody className="bg-white">
-              <tr>
-                <td className="px-6 py-3 text-sm font-medium">
-                  Burger1 (Product)
-                </td>
-                <td className="px-6 py-3 text-sm font-medium">x</td>
-                <td className="px-6 py-3 text-sm">3 (amount)</td>
-              </tr>
+              {cartItems.map((product) => (
+                <tr key={product.id} className="border-b">
+                  <td className="px-2 py-2">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-8 h-8 object-cover"
+                    />
+                  </td>
+                  <td className="px-1 py-1 text-sm font-extrabold ">
+                    {product.name}
+                    {Object.keys(product.extras).length > 0 && (
+                      <ul className="text-xs">
+                        {Object.entries(product.extras)
+                          .filter(([key, value]) => value > 0)
+                          .map(([key, value]) => (
+                            <li key={key} className="py-1">
+                              <span className="font-light">{key}: </span>
+                              <span className="font-light">{value}</span>
+                            </li>
+                          ))}
+                      </ul>
+                    )}
+                  </td>
+                  <td className="px-2 py-3 text-sm font-bold">x</td>
+                  <td className="px-5 py-3 text-sm">{product.amount}</td>
+                  <tr>
+                    <td className="px-1 py-3 text-sm font-bold">Subtotal:</td>
+                    <td className="px-1 py-3 text-sm">{product.totalPrice}</td>
+                  </tr>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -88,12 +153,6 @@ const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
           <h3 className="text-lg font-semibold mb-2">Total Amount</h3>
           <table>
             <tbody className="bg-white divide-y">
-              <tr>
-                <td className="px-6 py-3 text-sm font-medium">Subtotal:</td>
-                <td className="px-6 py-3 text-sm">
-                  28.50 CHF (Product x amount)
-                </td>
-              </tr>
               <tr>
                 <td className="px-6 py-3 text-sm font-medium">Shipping:</td>
                 <td className="px-6 py-3 text-sm">
@@ -107,7 +166,8 @@ const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
                   Total amount:
                 </td>
                 <td className="px-6 py-3 text-sm text-white">
-                  28.50 CHF (inkl. 0.72 CHF / 2.6% MwSt) (Subtotal + Shipping)
+                  {totalAmount.toFixed(2)} CHF (inkl. 0.72 CHF / 2.6% MwSt)
+                  (Subtotal + Shipping)
                 </td>
               </tr>
             </tbody>
@@ -160,6 +220,7 @@ const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
       </div>
 
       <button
+        onClick={handleMyOrders}
         type="submit"
         className="w-full bg-white py-2 rounded-xl shadow-2xl hover:bg-blackho hover:text-white"
       >

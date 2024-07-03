@@ -7,8 +7,9 @@ import PizzaModal from "../modals/PizzaModal";
 import BurgerModal from "../modals/BurgerModal";
 import FishModal from "../modals/FishModal";
 import { useRouter } from "next/navigation";
+import YourOrders from "../checkoutCart/YourOrders";
 
-interface Product {
+export interface Product {
   id: number;
   name: string;
   image: string;
