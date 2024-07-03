@@ -1,13 +1,15 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Modal from "../modals/Modal";
 import PizzaModal from "../modals/PizzaModal";
 import BurgerModal from "../modals/BurgerModal";
 import FishModal from "../modals/FishModal";
+import { useRouter } from "next/navigation";
+import YourOrders from "../checkoutCart/YourOrders";
 
-interface Product {
+export interface Product {
   id: number;
   name: string;
   image: string;
@@ -23,6 +25,7 @@ const ShoppingCartPage: FC = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const router = useRouter(); /*to redirect to the checkout page*/
 
   useEffect(() => {
     const storedCartItems = localStorage.getItem("cartItems") || "[]";
@@ -82,6 +85,10 @@ const ShoppingCartPage: FC = () => {
   const handleOrder = () => {
     console.log("Order placed for:", selectedProduct);
     setIsModalOpen(false);
+  };
+
+  const handleCheckout = () => {
+    router.push("/checkout");
   };
 
   return (
@@ -285,7 +292,7 @@ const ShoppingCartPage: FC = () => {
                   <button
                     type="button"
                     className="text-white py-3 px-6 rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-opacity-50"
-                    onClick={() => console.log("Proceed to checkout")}
+                    onClick={handleCheckout}
                   >
                     Proceed to Checkout
                   </button>

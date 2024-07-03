@@ -34,6 +34,7 @@ module.exports = {
       socialicon: "#D1D8E0",
       orange: "#F86441",
       purple: "#800080",
+      crimson: "#DC143C",
     },
     extend: {
       fontSize: {
