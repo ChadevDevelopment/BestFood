@@ -114,38 +114,43 @@ const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
           <h3 className="text-lg font-semibold mb-2 ">Product</h3>
           <table className="w-full ">
             <tbody className="bg-white">
-              {cartItems.map((product) => (
-                <tr key={product.id} className="border-b">
-                  <td className="px-2 py-2">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-8 h-8 object-cover"
-                    />
-                  </td>
-                  <td className="px-1 py-1 text-sm font-extrabold ">
-                    {product.name}
-                    {Object.keys(product.extras).length > 0 && (
-                      <ul className="text-xs">
-                        {Object.entries(product.extras)
-                          .filter(([key, value]) => value > 0)
-                          .map(([key, value]) => (
-                            <li key={key} className="py-1">
-                              <span className="font-light">{key}: </span>
-                              <span className="font-light">{value}</span>
-                            </li>
-                          ))}
-                      </ul>
-                    )}
-                  </td>
-                  <td className="px-2 py-3 text-sm font-bold">x</td>
-                  <td className="px-5 py-3 text-sm">{product.amount}</td>
-                  <tr>
-                    <td className="px-1 py-3 text-sm font-bold">Subtotal:</td>
-                    <td className="px-1 py-3 text-sm">{product.totalPrice}</td>
+              {cartItems
+                .slice(0)
+                .reverse()
+                .map((product) => (
+                  <tr key={product.id} className="border-b">
+                    <td className="px-2 py-2">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-8 h-8 object-cover"
+                      />
+                    </td>
+                    <td className="px-1 py-1 text-sm font-extrabold ">
+                      {product.name}
+                      {Object.keys(product.extras).length > 0 && (
+                        <ul className="text-xs">
+                          {Object.entries(product.extras)
+                            .filter(([key, value]) => value > 0)
+                            .map(([key, value]) => (
+                              <li key={key} className="py-1">
+                                <span className="font-light">{key}: </span>
+                                <span className="font-light">{value}</span>
+                              </li>
+                            ))}
+                        </ul>
+                      )}
+                    </td>
+                    <td className="px-2 py-3 text-sm font-bold">x</td>
+                    <td className="px-5 py-3 text-sm">{product.amount}</td>
+                    <tr>
+                      <td className="px-1 py-3 text-sm font-bold">Subtotal:</td>
+                      <td className="px-1 py-3 text-sm">
+                        {product.totalPrice}
+                      </td>
+                    </tr>
                   </tr>
-                </tr>
-              ))}
+                ))}
             </tbody>
           </table>
         </div>
