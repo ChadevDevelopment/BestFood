@@ -1,6 +1,7 @@
 "use client";
 import { FC, useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { toastError, toastSuccess } from "@/helpers/ToastHot";
 
 interface ModelProps {
   label: string;
@@ -35,8 +36,13 @@ const Modal: FC<ModelProps> = ({
   }, [onClose]);
 
   const handleOrder = useCallback(() => {
-    onOrder();
-    router.push("/shopping-cart");
+    if (!handleOrder) {
+      toastError("Product not added");
+    } else {
+      toastSuccess("Product successfully added");
+      onOrder();
+      router.push("/shopping-cart");
+    }
   }, [onOrder, router]);
 
   if (!isOpen) return null;
