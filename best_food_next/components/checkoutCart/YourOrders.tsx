@@ -12,6 +12,54 @@ interface YourOrder {
   ) => void;
 }
 
+// Sipariş verildiğinde localStorage'a kaydeden fonksiyon
+const saveOrderToLocalStorage = (cartItems: Product[]) => {
+  const today = new Date()
+    .toLocaleString("en-CH", { timeZone: "Europe/Zurich" })
+    .slice(0, 10)
+    .replace("T", " ");
+  const storedOrderData = JSON.parse(localStorage.getItem("orderData") || "{}");
+
+  // Bugune ait bir siparis yoksa yeni bir orderId atadim.
+  if (!storedOrderData[today]) {
+    const lastOrderId = Object.keys(storedOrderData).reduce((maxId, date) => {
+      const dayData = storedOrderData[date];
+      return dayData.orderId > maxId ? dayData.orderId : maxId;
+    }, 0);
+    storedOrderData[today] = { orderId: lastOrderId + 1, orders: [] };
+  }
+
+  const currentOrderId = storedOrderData[today].orderId;
+
+  // Mevcut siparişleri al
+  const existingOrders = storedOrderData[today].orders;
+
+  // Yeni siparişleri mevcut siparişlerle birleştir
+  cartItems.forEach((newItem) => {
+    const existingOrderIndex = existingOrders.findIndex(
+      (order: { product: Product }) => order.product.id === newItem.id
+    );
+
+    if (existingOrderIndex !== -1) {
+      // Ürün zaten mevcutsa, miktarı ve toplam fiyatı güncelle
+      existingOrders[existingOrderIndex].amount += newItem.amount;
+      existingOrders[existingOrderIndex].totalPrice += newItem.totalPrice;
+    } else {
+      // Ürün mevcut değilse, yeni ürün olarak ekle
+      existingOrders.push({
+        product: newItem,
+        orderId: currentOrderId,
+        date: today,
+        amount: newItem.amount,
+        totalPrice: newItem.totalPrice,
+      });
+    }
+  });
+
+  storedOrderData[today].orders = existingOrders;
+  localStorage.setItem("orderData", JSON.stringify(storedOrderData));
+};
+
 const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
   const router = useRouter(); /*to redirect to the myorders page*/
   const [cartItems, setCartItems] = useState<Product[]>([]);
@@ -42,6 +90,7 @@ const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
   }, []);
 
   const handleMyOrders = () => {
+    saveOrderToLocalStorage(cartItems);
     router.push("/myorders");
   };
 

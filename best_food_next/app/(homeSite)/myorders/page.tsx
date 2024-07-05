@@ -1,6 +1,6 @@
 import MyOrdersPage from "@/components/myorders/MyOrders";
 
-const Orders = () => {
+const MyOrders = () => {
   return (
     <div>
       <MyOrdersPage />
@@ -8,4 +8,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default MyOrders;

@@ -19,8 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Toaster />
       <body>
+        <Toaster />
         <Header />
         <div className="pt-32">{children}</div>
         <Footer />
