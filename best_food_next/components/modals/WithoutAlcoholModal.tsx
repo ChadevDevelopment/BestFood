@@ -2,43 +2,36 @@
 import { FC, useEffect, useState } from "react";
 import Modal from "./Modal";
 import { Product } from "../productlist/ProductListItem";
-
-const EXTRAS = [
-  {
-    name: "Salty Cookies",
-    price: 3.0,
-    image: "./chooseIngredients/noalcoholIngredients/saltycookies.webp",
-  },
-  {
-    name: "Sweet Cookies",
-    price: 3.0,
-    image: "./chooseIngredients/noalcoholIngredients/sweetcookie.jpg",
-  },
-];
+import { EXTRAS } from "@/config/extrasConfig";
 
 interface WithAlcoholModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: Product;
+  extras: { name: string; price: number }[];
 }
 
-const WithAlcoholModal: FC<WithAlcoholModalProps> = ({
+const WithoutAlcoholModal: FC<WithAlcoholModalProps> = ({
   isOpen,
   onClose,
   product,
 }) => {
-  const [extras, setExtras] = useState<Record<string, number>>({
-    "Salty Cookies": 0,
-    "Sweet Cookies": 0,
-  });
+  const [extras, setExtras] = useState<Record<string, number>>(
+    EXTRAS.drinkswithoutalcohol.reduce((acc, extra) => {
+      acc[extra.name] = 0;
+      return acc;
+    }, {} as Record<string, number>)
+  );
   const [amount, setAmount] = useState(1);
 
   useEffect(() => {
     if (isOpen) {
-      setExtras({
-        "Salty Cookies": 0,
-        "Sweet Cookies": 0,
-      });
+      setExtras(
+        EXTRAS.drinkswithoutalcohol.reduce((acc, extra) => {
+          acc[extra.name] = 0;
+          return acc;
+        }, {} as Record<string, number>)
+      );
       setAmount(1);
     }
   }, [isOpen]);
@@ -92,7 +85,8 @@ const WithAlcoholModal: FC<WithAlcoholModalProps> = ({
             return (
               total +
               extras[key] *
-                (EXTRAS.find((extra) => extra.name === key)?.price || 0)
+                (EXTRAS.drinkswithoutalcohol.find((extra) => extra.name === key)
+                  ?.price || 0)
             );
           }, 0)) *
         amount
@@ -110,7 +104,7 @@ const WithAlcoholModal: FC<WithAlcoholModalProps> = ({
       {/* CHOOSE INGREDIENTS */}
       <div className="w-1/2 p-4">
         <h3 className="text-lg font-bold mb-4 border-b">Choose Ingredients</h3>
-        {EXTRAS.map((extra) => (
+        {EXTRAS.drinkswithoutalcohol.map((extra) => (
           <div key={extra.name} className="flex items-center mb-4">
             <img
               src={extra.image}
@@ -250,4 +244,4 @@ const WithAlcoholModal: FC<WithAlcoholModalProps> = ({
   );
 };
 
-export default WithAlcoholModal;
+export default WithoutAlcoholModal;

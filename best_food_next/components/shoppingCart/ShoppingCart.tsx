@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Modal from "../modals/Modal";
@@ -7,8 +7,10 @@ import PizzaModal from "../modals/PizzaModal";
 import BurgerModal from "../modals/BurgerModal";
 import FishModal from "../modals/FishModal";
 import { useRouter } from "next/navigation";
-import YourOrders from "../checkoutCart/YourOrders";
 import { useCart } from "@/context/CartContext";
+import { EXTRAS } from "@/config/extrasConfig";
+import WithAlcoholModal from "../modals/WithAlcoholModal";
+import WithoutAlcoholModal from "../modals/WithoutAlcoholModal";
 
 export interface Product {
   id: number;
@@ -322,6 +324,7 @@ const ShoppingCartPage: FC = () => {
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 product={selectedProduct}
+                extras={EXTRAS.pizzas}
               />
             )}
             {selectedProduct.category === "burger" && (
@@ -329,6 +332,7 @@ const ShoppingCartPage: FC = () => {
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 product={selectedProduct}
+                extras={EXTRAS.burgers}
               />
             )}
             {selectedProduct.category === "fish" && (
@@ -336,6 +340,23 @@ const ShoppingCartPage: FC = () => {
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 product={selectedProduct}
+                extras={EXTRAS.fishs}
+              />
+            )}
+            {selectedProduct.category === "drinkwithalcohol" && (
+              <WithAlcoholModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                product={selectedProduct}
+                extras={EXTRAS.drinkswithalcohols}
+              />
+            )}
+            {selectedProduct.category === "drinkswithoutalcohol" && (
+              <WithoutAlcoholModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                product={selectedProduct}
+                extras={EXTRAS.drinkswithoutalcohol}
               />
             )}
           </div>

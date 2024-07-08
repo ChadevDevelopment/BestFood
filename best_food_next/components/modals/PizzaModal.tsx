@@ -2,67 +2,32 @@
 import { FC, useEffect, useState } from "react";
 import Modal from "./Modal";
 import { Product } from "../productlist/ProductListItem";
-
-const EXTRAS = [
-  {
-    name: "Fior di latte",
-    price: 2.0,
-    image: "./chooseIngredients/pizzaIngredients/mozarella.png",
-  },
-  {
-    name: "Buffalo mozzarella",
-    price: 3.0,
-    image: "./chooseIngredients/pizzaIngredients/mozarella.png",
-  },
-  {
-    name: "Basillikum",
-    price: 2.0,
-    image: "./chooseIngredients/pizzaIngredients/basillikum.png",
-  },
-  {
-    name: "Mascarpone",
-    price: 2.5,
-    image: "./chooseIngredients/pizzaIngredients/mascarpone.png",
-  },
-  {
-    name: "Egg",
-    price: 2.0,
-    image: "./chooseIngredients/pizzaIngredients/egg.png",
-  },
-  {
-    name: "Olives",
-    price: 2.0,
-    image: "./chooseIngredients/pizzaIngredients/olives.png",
-  },
-];
+import { EXTRAS } from "@/config/extrasConfig";
 
 interface PizzaModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: Product;
+  extras: { name: string; price: number }[];
 }
 
 const PizzaModal: FC<PizzaModalProps> = ({ isOpen, onClose, product }) => {
-  const [extras, setExtras] = useState<Record<string, number>>({
-    "Fior di latte": 0,
-    "Buffalo mozzarella": 0,
-    Basillikum: 0,
-    Mascarpone: 0,
-    Egg: 0,
-    Olives: 0,
-  });
+  const [extras, setExtras] = useState<Record<string, number>>(
+    EXTRAS.pizzas.reduce((acc, extra) => {
+      acc[extra.name] = 0;
+      return acc;
+    }, {} as Record<string, number>)
+  );
   const [amount, setAmount] = useState(1);
 
   useEffect(() => {
     if (isOpen) {
-      setExtras({
-        "Fior di latte": 0,
-        "Buffalo mozzarella": 0,
-        Basillikum: 0,
-        Mascarpone: 0,
-        Egg: 0,
-        Olives: 0,
-      });
+      setExtras(
+        EXTRAS.pizzas.reduce((acc, extra) => {
+          acc[extra.name] = 0;
+          return acc;
+        }, {} as Record<string, number>)
+      );
       setAmount(1);
     }
   }, [isOpen]);
@@ -116,7 +81,7 @@ const PizzaModal: FC<PizzaModalProps> = ({ isOpen, onClose, product }) => {
             return (
               total +
               extras[key] *
-                (EXTRAS.find((extra) => extra.name === key)?.price || 0)
+                (EXTRAS.pizzas.find((extra) => extra.name === key)?.price || 0)
             );
           }, 0)) *
         amount
@@ -134,7 +99,7 @@ const PizzaModal: FC<PizzaModalProps> = ({ isOpen, onClose, product }) => {
       {/* CHOOSE INGREDIENTS */}
       <div className="w-1/2 p-4">
         <h3 className="text-lg font-bold mb-4 border-b">Choose Ingredients</h3>
-        {EXTRAS.map((extra) => (
+        {EXTRAS.pizzas.map((extra) => (
           <div key={extra.name} className="flex items-center mb-4">
             <img
               src={extra.image}
