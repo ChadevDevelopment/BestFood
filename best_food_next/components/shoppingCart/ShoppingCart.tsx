@@ -8,6 +8,7 @@ import BurgerModal from "../modals/BurgerModal";
 import FishModal from "../modals/FishModal";
 import { useRouter } from "next/navigation";
 import YourOrders from "../checkoutCart/YourOrders";
+import { useCart } from "@/context/CartContext";
 
 export interface Product {
   id: number;
@@ -26,6 +27,7 @@ const ShoppingCartPage: FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const router = useRouter(); /*to redirect to the checkout page*/
+  const { decreaseCartItemCount } = useCart();
 
   useEffect(() => {
     const storedCartItems = localStorage.getItem("cartItems") || "[]";
@@ -62,6 +64,7 @@ const ShoppingCartPage: FC = () => {
     const updatedCartItems = cartItems.filter((item) => item.id !== id);
     setCartItems(updatedCartItems);
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    decreaseCartItemCount(); //shoppingcartta silinen urunsayisini shoppingiconunda dustum.
   };
 
   // for Product edit klick with edit Svg

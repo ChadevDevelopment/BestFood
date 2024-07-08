@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer/footer";
 import { Toaster } from "react-hot-toast";
+import { CartProvider } from "@/context/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Toaster />
-        <Header />
-        <div className="pt-32">{children}</div>
-        <Footer />
+        <CartProvider>
+          <Toaster />
+          <Header />
+          <div className="pt-32">{children}</div>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

@@ -2,6 +2,7 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toastError, toastSuccess } from "@/helpers/ToastHot";
+import { useCart } from "@/context/CartContext";
 
 interface ModelProps {
   label: string;
@@ -21,8 +22,8 @@ const Modal: FC<ModelProps> = ({
   className,
 }) => {
   const router = useRouter();
-
   const [showModal, setShowModal] = useState(isOpen);
+  const { increaseCartItemCount } = useCart();
 
   // isOpen degistiginde showModali useEffect ile guncelledim.
   useEffect(() => {
@@ -42,8 +43,9 @@ const Modal: FC<ModelProps> = ({
       toastSuccess("Product successfully added");
       onOrder();
       router.push("/shopping-cart");
+      increaseCartItemCount(); //urun eklenince shoppincart uzerine urun sayisini yazdirdim.
     }
-  }, [onOrder, router]);
+  }, [onOrder, router, increaseCartItemCount]);
 
   if (!isOpen) return null;
 
