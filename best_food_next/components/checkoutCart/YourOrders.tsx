@@ -1,7 +1,7 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Product } from "../shoppingCart/ShoppingCart";
+import { Product } from "@/types/interfaces";
 
 interface YourOrder {
   formData: any;
@@ -12,52 +12,46 @@ interface YourOrder {
   ) => void;
 }
 
-// Sipariş verildiğinde localStorage'a kaydeden fonksiyon
 const saveOrderToLocalStorage = (cartItems: Product[]) => {
+  const storedOrderData = JSON.parse(localStorage.getItem("orderData") || "{}");
+
+  // Global bir orderId belirleyelim
+  const lastOrderId = Object.values(storedOrderData).reduce(
+    (maxId: number, dayData: any) => {
+      return dayData.orders.reduce((maxId: number, order: any) => {
+        return order.orderId > maxId ? order.orderId : maxId;
+      }, maxId);
+    },
+    0
+  );
+
+  const newOrderId = lastOrderId + 1;
+
+  // Yeni siparişleri ekle
   const today = new Date()
     .toLocaleString("en-CH", { timeZone: "Europe/Zurich" })
     .slice(0, 10)
     .replace("T", " ");
-  const storedOrderData = JSON.parse(localStorage.getItem("orderData") || "{}");
 
-  // Bugune ait bir siparis yoksa yeni bir orderId atadim.
   if (!storedOrderData[today]) {
-    const lastOrderId = Object.keys(storedOrderData).reduce((maxId, date) => {
-      const dayData = storedOrderData[date];
-      return dayData.orderId > maxId ? dayData.orderId : maxId;
-    }, 0);
-    storedOrderData[today] = { orderId: lastOrderId + 1, orders: [] };
+    storedOrderData[today] = { orders: [] };
   }
 
-  const currentOrderId = storedOrderData[today].orderId;
-
-  // Mevcut siparişleri al
   const existingOrders = storedOrderData[today].orders;
 
-  // Yeni siparişleri mevcut siparişlerle birleştir
   cartItems.forEach((newItem) => {
-    const existingOrderIndex = existingOrders.findIndex(
-      (order: { product: Product }) => order.product.id === newItem.id
-    );
-
-    if (existingOrderIndex !== -1) {
-      // Ürün zaten mevcutsa, miktarı ve toplam fiyatı güncelle
-      existingOrders[existingOrderIndex].amount += newItem.amount;
-      existingOrders[existingOrderIndex].totalPrice += newItem.totalPrice;
-    } else {
-      // Ürün mevcut değilse, yeni ürün olarak ekle
-      existingOrders.push({
-        product: newItem,
-        orderId: currentOrderId,
-        date: today,
-        amount: newItem.amount,
-        totalPrice: newItem.totalPrice,
-      });
-    }
+    existingOrders.push({
+      ...newItem,
+      orderId: newOrderId,
+      date: today,
+      totalPrice: newItem.totalPrice,
+    });
   });
 
-  storedOrderData[today].orders = existingOrders;
   localStorage.setItem("orderData", JSON.stringify(storedOrderData));
+
+  // Cleaned ShoppingCart
+  localStorage.removeItem("cartItems");
 };
 
 const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
@@ -72,9 +66,9 @@ const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
         const parsedItems = JSON.parse(storedCartItems);
         // verilerin dogru bicimde alindigini kontrol etmek icin
         const validatedItems = parsedItems.map((item: any) => ({
-          ...item,
           id: item.product?.id || "Cannot find Id",
           name: item.product?.name || "Unknown Product",
+          description: item.product?.description || "Can't description",
           image: item.product?.image || "/Error.png",
           price: parseFloat(item.product?.price) || 0,
           amount: parseInt(item.amount) || 0,
@@ -98,6 +92,9 @@ const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
     (total, product) => total + (product.totalPrice || 0),
     0
   );
+
+  const formattedTotalAmount =
+    typeof totalAmount === "number" ? totalAmount.toFixed(2) : "0.00";
 
   return (
     <div className="bg-titlebg2 p-4 rounded shadow-md mb-4 md:w-2/5 md:ml-2">
@@ -220,7 +217,7 @@ const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
                   Total amount:
                 </td>
                 <td className="px-6 py-3 text-sm text-white">
-                  {totalAmount.toFixed(2)} CHF (inkl. 0.72 CHF / 2.6% MwSt)
+                  {formattedTotalAmount} CHF (inkl. 0.72 CHF / 2.6% MwSt)
                   (Subtotal + Shipping)
                 </td>
               </tr>

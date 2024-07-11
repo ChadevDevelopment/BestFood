@@ -11,18 +11,7 @@ import { useCart } from "@/context/CartContext";
 import { EXTRAS } from "@/config/extrasConfig";
 import WithAlcoholModal from "../modals/WithAlcoholModal";
 import WithoutAlcoholModal from "../modals/WithoutAlcoholModal";
-
-export interface Product {
-  id: number;
-  name: string;
-  image: string;
-  price: number;
-  amount: number;
-  totalPrice: number;
-  extras: Record<string, number>;
-  description: string;
-  category: string;
-}
+import { Product } from "@/types/interfaces";
 
 const ShoppingCartPage: FC = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);

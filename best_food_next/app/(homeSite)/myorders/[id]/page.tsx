@@ -1,5 +1,11 @@
-const MyOrdersDetails = () => {
-  return <div>MyOrdersDetailsPage</div>;
+import MyOrderView from "@/components/myorders/MyOrderView";
+
+const View = () => {
+  return (
+    <div>
+      <MyOrderView />
+    </div>
+  );
 };
 
-export default MyOrdersDetails;
+export default View;

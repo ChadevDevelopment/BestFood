@@ -1,24 +1,11 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Product } from "../shoppingCart/ShoppingCart";
-
-interface Order {
-  product: Product;
-  orderId: number;
-  date: string;
-  amount: number;
-  totalPrice: number;
-}
-
-interface StoredOrderData {
-  [key: string]: {
-    orderId: number;
-    orders: Order[];
-  };
-}
+import { useRouter } from "next/navigation";
+import { Order, StoredOrderData } from "@/types/interfaces";
 
 const MyOrdersPage = () => {
+  const router = useRouter(); /*to redirect to the myorders page*/
   const [orderData, setOrderData] = useState<Order[]>([]);
 
   useEffect(() => {
@@ -44,6 +31,15 @@ const MyOrdersPage = () => {
     }
   }, []);
 
+  // Seçilen siparişin detaylarını localStorage'dan alıp, MyOrderView sayfasına yönlendirdim.
+  const handleViewOrder = (orderId: number) => {
+    const selectedOrder = orderData.find((order) => order.orderId === orderId);
+    if (selectedOrder) {
+      localStorage.setItem("selectedOrder", JSON.stringify(selectedOrder));
+      router.push(`/myorders/${orderId}`);
+    }
+  };
+
   if (orderData.length === 0) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -62,7 +58,7 @@ const MyOrdersPage = () => {
               <th className="py-3 px-6 border-b font-extrabold">Order ID</th>
               <th className="py-3 px-6 border-b font-extrabold">Date</th>
               <th className="py-3 px-6 border-b font-extrabold">
-                Product Name
+                Customer Name
               </th>
               <th className="py-3 px-6 border-b font-extrabold">Status</th>
               <th className="py-3 px-6 border-b font-extrabold">Total</th>
@@ -82,20 +78,22 @@ const MyOrdersPage = () => {
                     {order.date}
                   </td>
                   <td className="py-3 px-10 border-b text-center">
-                    {order.product.name}
+                    Customer Name
                   </td>
                   <td className="py-3 px-10 border-b text-center">Status</td>
                   <td className="py-3 px-10 border-b text-center">
-                    CHF {order.totalPrice} / {order.product.amount} quantity
+                    CHF {order.totalPrice} /
+                    {order.amount ? order.amount : "Can't quantity"} quantity
                   </td>
                   <td className="py-3 px-10 border-b text-center">
                     <div className="flex gap-2 justify-center">
                       <button
-                        onClick={() => console.log("ProductDetails View")}
+                        onClick={() => handleViewOrder(order.orderId)}
                         className="text-black font-semibold border px-2 py-1 rounded-xl bg-titlebg2 hover:bg-crimson hover:text-white"
                       >
                         View
                       </button>
+
                       <button
                         onClick={() => console.log("Again Order")}
                         className="text-black font-semibold border px-2 py-1 rounded-xl bg-titlebg2 hover:bg-crimson hover:text-white"
