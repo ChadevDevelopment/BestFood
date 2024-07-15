@@ -34,7 +34,7 @@ const Orders: FC = () => {
       {orderData.items.map((item, index) => (
         <div
           key={index}
-          className="p-5 grid grid-cols-1 md:grid-cols-2 gap-4 shadow-2xl border rounded-xl"
+          className="p-5 grid grid-cols-1 md:grid-cols-2 gap-4 shadow-2xl border rounded-xl mb-5"
         >
           <div className="relative overflow-hidden aspect-w-16 aspect-h-9 rounded-xl">
             <Image
