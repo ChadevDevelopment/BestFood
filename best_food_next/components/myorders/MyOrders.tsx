@@ -17,9 +17,15 @@ const MyOrdersPage = () => {
 
         for (const [date, { orders }] of Object.entries(parsedOrderData)) {
           orders.forEach((order: Order) => {
+            // Her siparişteki ürünlerin miktarlari
+            const totalQuantity = order.items.reduce(
+              (total, item) => total + item.amount,
+              0
+            );
             allOrders.push({
               ...order,
               date,
+              amount: totalQuantity, //yeni amount guncelledim.
             });
           });
         }
@@ -57,9 +63,6 @@ const MyOrdersPage = () => {
             <tr>
               <th className="py-3 px-6 border-b font-extrabold">Order ID</th>
               <th className="py-3 px-6 border-b font-extrabold">Date</th>
-              <th className="py-3 px-6 border-b font-extrabold">
-                Customer Name
-              </th>
               <th className="py-3 px-6 border-b font-extrabold">Status</th>
               <th className="py-3 px-6 border-b font-extrabold">Total</th>
               <th className="py-3 px-6 border-b font-extrabold">Actions</th>
@@ -77,12 +80,9 @@ const MyOrdersPage = () => {
                   <td className="py-3 px-10 border-b text-center">
                     {order.date}
                   </td>
-                  <td className="py-3 px-10 border-b text-center">
-                    Customer Name
-                  </td>
                   <td className="py-3 px-10 border-b text-center">Status</td>
                   <td className="py-3 px-10 border-b text-center">
-                    CHF {order.totalPrice} /
+                    CHF {parseFloat(order.totalPrice.toFixed(2))} /
                     {order.amount ? order.amount : "Can't quantity"} quantity
                   </td>
                   <td className="py-3 px-10 border-b text-center">
@@ -91,14 +91,7 @@ const MyOrdersPage = () => {
                         onClick={() => handleViewOrder(order.orderId)}
                         className="text-black font-semibold border px-2 py-1 rounded-xl bg-titlebg2 hover:bg-crimson hover:text-white"
                       >
-                        View
-                      </button>
-
-                      <button
-                        onClick={() => console.log("Again Order")}
-                        className="text-black font-semibold border px-2 py-1 rounded-xl bg-titlebg2 hover:bg-crimson hover:text-white"
-                      >
-                        Order Again
+                        View Details
                       </button>
                     </div>
                   </td>

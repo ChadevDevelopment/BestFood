@@ -18,6 +18,7 @@ export interface Order {
   amount: number;
   totalPrice: number;
   deliveryAddress?: string;
+  items: Product[];
 }
 // for Myorders.tsx file
 export interface StoredOrderData {

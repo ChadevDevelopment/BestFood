@@ -2,6 +2,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Product } from "@/types/interfaces";
+import { useCart } from "@/context/CartContext";
 
 interface YourOrder {
   formData: any;
@@ -39,14 +40,15 @@ const saveOrderToLocalStorage = (cartItems: Product[]) => {
 
   const existingOrders = storedOrderData[today].orders;
 
-  cartItems.forEach((newItem) => {
-    existingOrders.push({
-      ...newItem,
-      orderId: newOrderId,
-      date: today,
-      totalPrice: newItem.totalPrice,
-    });
-  });
+  const newOrder = {
+    orderId: newOrderId,
+    date: today,
+    totalPrice: cartItems.reduce((total, item) => total + item.totalPrice, 0),
+    quantity: cartItems.length,
+    items: cartItems,
+  };
+
+  storedOrderData[today].orders.push(newOrder);
 
   localStorage.setItem("orderData", JSON.stringify(storedOrderData));
 
@@ -56,6 +58,7 @@ const saveOrderToLocalStorage = (cartItems: Product[]) => {
 
 const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
   const router = useRouter(); /*to redirect to the myorders page*/
+  const { clearCart } = useCart();
   const [cartItems, setCartItems] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -85,6 +88,7 @@ const YourOrders: FC<YourOrder> = ({ formData, handleChange }) => {
 
   const handleMyOrders = () => {
     saveOrderToLocalStorage(cartItems);
+    clearCart();
     router.push("/myorders");
   };
 

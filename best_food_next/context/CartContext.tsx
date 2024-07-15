@@ -12,12 +12,14 @@ interface CartContextType {
   cartItemCount: number;
   increaseCartItemCount: () => void;
   decreaseCartItemCount: () => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType>({
   cartItemCount: 0,
   increaseCartItemCount: () => {},
   decreaseCartItemCount: () => {},
+  clearCart: () => {},
 });
 
 interface CartProviderProps {
@@ -60,9 +62,18 @@ export const CartProvider: FC<CartProviderProps> = ({ children }) => {
     }
   };
 
+  const clearCart = () => {
+    setCartItemCount(0);
+  };
+
   return (
     <CartContext.Provider
-      value={{ cartItemCount, increaseCartItemCount, decreaseCartItemCount }}
+      value={{
+        cartItemCount,
+        increaseCartItemCount,
+        decreaseCartItemCount,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>
