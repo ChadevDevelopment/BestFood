@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import DynamicContent from "./DynamicContent";
 import { Order, Product } from "@/types/interfaces";
+import { useCart } from "@/context/CartContext";
 
 const sections = [
   { name: "Dashboard", route: "dashboard" },
@@ -16,6 +17,7 @@ const MyOrderView: FC = () => {
   const router = useRouter();
   const [orderData, setOrderData] = useState<Order | null>(null);
   const [currentSection, setCurrentSection] = useState<string>("Orders");
+  const { increaseCartItemCount } = useCart();
 
   useEffect(() => {
     const selectedOrderData = localStorage.getItem("selectedOrder");
@@ -37,26 +39,44 @@ const MyOrderView: FC = () => {
     router.push(route);
   };
 
-  // ! BURAYA TEKRAR BAK LOCALSTORAGE EKLENIYOR AMA SHOPPINGCARTTA GOREMIYORUM.
-  const addToCart = (items: Product[]) => {
-    const cartData = localStorage.getItem("cart");
-    let cart: Product[] = cartData ? JSON.parse(cartData) : [];
+  const addToCart = (
+    items: {
+      product: Product;
+      amount: number;
+      extras: Record<string, number>;
+    }[]
+  ) => {
+    const cartData = localStorage.getItem("cartItems");
+    let cart: {
+      product: Product;
+      amount: number;
+      extras: Record<string, number>;
+    }[] = cartData ? JSON.parse(cartData) : [];
+
     items.forEach((item) => {
-      for (let i = 0; i < item.amount; i++) {
-        const existingItem = cart.find((cartItem) => cartItem.id === item.id);
-        if (existingItem) {
-          existingItem.amount += 1;
-        } else {
-          cart.push({ ...item, amount: 1 });
-        }
+      const existingItem = cart.find(
+        (cartItem) => cartItem.product.id === item.product.id
+      );
+      if (existingItem) {
+        existingItem.amount += item.amount;
+        existingItem.product.totalPrice += item.product.totalPrice;
+      } else {
+        cart.push(item); // Yeni ürünü sepete ekle
       }
     });
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("cartItems", JSON.stringify(cart));
+    items.forEach(() => increaseCartItemCount());
   };
 
   const handleOrderAgain = () => {
     if (orderData) {
-      addToCart(orderData.items);
+      const itemsToAdd = orderData.items.map((item) => ({
+        product: item,
+        amount: item.amount,
+        extras: item.extras,
+        totalPrice: item.totalPrice,
+      }));
+      addToCart(itemsToAdd);
       router.push("/shopping-cart");
     }
   };
