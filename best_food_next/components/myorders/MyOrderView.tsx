@@ -62,7 +62,7 @@ const MyOrderView: FC = () => {
       if (existingItem) {
         existingItem.amount += item.amount;
         existingItem.totalPrice += item.totalPrice;
-        existingItem.extras = item.extras;
+        existingItem.extras = { ...existingItem.extras, ...item.extras };
       } else {
         cart.push(item);
       }
