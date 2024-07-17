@@ -41,16 +41,18 @@ const MyOrderView: FC = () => {
 
   const addToCart = (
     items: {
-      product: Product;
+      product: Omit<Product, "amount" | "totalPrice" | "extras">; //Omit ile amount totalPrice extrasi product icine dahil etmedim.
       amount: number;
       extras: Record<string, number>;
+      totalPrice: number;
     }[]
   ) => {
     const cartData = localStorage.getItem("cartItems");
     let cart: {
-      product: Product;
+      product: Omit<Product, "amount" | "totalPrice" | "extras">;
       amount: number;
       extras: Record<string, number>;
+      totalPrice: number;
     }[] = cartData ? JSON.parse(cartData) : [];
 
     items.forEach((item) => {
@@ -59,11 +61,13 @@ const MyOrderView: FC = () => {
       );
       if (existingItem) {
         existingItem.amount += item.amount;
-        existingItem.product.totalPrice += item.product.totalPrice;
+        existingItem.totalPrice += item.totalPrice;
+        existingItem.extras = item.extras;
       } else {
-        cart.push(item); // Yeni ürünü sepete ekle
+        cart.push(item);
       }
     });
+
     localStorage.setItem("cartItems", JSON.stringify(cart));
     items.forEach(() => increaseCartItemCount());
   };
@@ -71,7 +75,14 @@ const MyOrderView: FC = () => {
   const handleOrderAgain = () => {
     if (orderData) {
       const itemsToAdd = orderData.items.map((item) => ({
-        product: item,
+        product: {
+          id: item.id,
+          name: item.name,
+          image: item.image,
+          price: item.price,
+          description: item.description,
+          category: item.category,
+        },
         amount: item.amount,
         extras: item.extras,
         totalPrice: item.totalPrice,
