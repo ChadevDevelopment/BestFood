@@ -51,8 +51,10 @@ const ShoppingCartPage: FC = () => {
   );
 
   // for Product remove klick with Delete Svg
-  const removeItem = (id: number) => {
-    const updatedCartItems = cartItems.filter((item) => item.id !== id);
+  const removeItem = (id: number, category: string) => {
+    const updatedCartItems = cartItems.filter(
+      (item) => item.id !== id || item.category !== category
+    );
     setCartItems(updatedCartItems);
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
     decreaseCartItemCount(); //shoppingcartta silinen urunsayisini shoppingiconunda dustum.
@@ -201,7 +203,11 @@ const ShoppingCartPage: FC = () => {
 
                         {/* Product delete side */}
                         <div className="w-1/6 text-center">
-                          <button onClick={() => removeItem(product.id)}>
+                          <button
+                            onClick={() =>
+                              removeItem(product.id, product.category)
+                            }
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
