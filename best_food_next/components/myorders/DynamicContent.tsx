@@ -9,15 +9,15 @@ import Logout from "./Logout";
 const DynamicContent = () => {
   const pathname = usePathname();
   const renderContent = () => {
-    if (pathname === "/dashboard") {
+    if (pathname === "/myorders/dashboard") {
       return <Dashboard />;
-    } else if (pathname === "/orders") {
+    } else if (pathname === "/myorders/orders") {
       return <Orders />;
-    } else if (pathname === "/addresses") {
+    } else if (pathname === "/myorders/addresses") {
       return <Addresses />;
-    } else if (pathname === "/account") {
+    } else if (pathname === "/myorders/account") {
       return <AccountDetails />;
-    } else if (pathname === "/login") {
+    } else if (pathname === "/myorders/login") {
       return <Logout />;
     } else {
       return <Orders />;
