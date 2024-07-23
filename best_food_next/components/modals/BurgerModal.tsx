@@ -2,67 +2,32 @@
 import { FC, useEffect, useState } from "react";
 import Modal from "./Modal";
 import { Product } from "../productlist/ProductListItem";
-
-const EXTRAS = [
-  {
-    name: "Cheddar",
-    price: 2.0,
-    image: "./chooseIngredients/burgerIngredients/cheddar.jpg",
-  },
-  {
-    name: "Kofte",
-    price: 5.0,
-    image: "./chooseIngredients/burgerIngredients/extrakofte.jpg",
-  },
-  {
-    name: "Mixed tursu",
-    price: 3.0,
-    image: "./chooseIngredients/burgerIngredients/karisiktursu.png",
-  },
-  {
-    name: "Mushroom",
-    price: 2.0,
-    image: "./chooseIngredients/burgerIngredients/mushroom.jpg",
-  },
-  {
-    name: "Pommes",
-    price: 4.0,
-    image: "./chooseIngredients/burgerIngredients/pommes.png",
-  },
-  {
-    name: "Onion rings",
-    price: 4.0,
-    image: "./chooseIngredients/burgerIngredients/onionrings.jpg",
-  },
-];
+import { EXTRAS } from "@/config/extrasConfig";
 
 interface BurgerModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: Product;
+  extras: { name: string; price: number }[];
 }
 
 const BurgerModal: FC<BurgerModalProps> = ({ isOpen, onClose, product }) => {
-  const [extras, setExtras] = useState<Record<string, number>>({
-    Cheddar: 0,
-    Kofte: 0,
-    "Mixed tursu": 0,
-    Mushroom: 0,
-    Pommes: 0,
-    "Onion rings": 0,
-  });
+  const [extras, setExtras] = useState<Record<string, number>>(
+    EXTRAS.burgers.reduce((acc, extra) => {
+      acc[extra.name] = 0;
+      return acc;
+    }, {} as Record<string, number>)
+  );
   const [amount, setAmount] = useState(1);
 
   useEffect(() => {
     if (isOpen) {
-      setExtras({
-        Cheddar: 0,
-        Kofte: 0,
-        "Mixed tursu": 0,
-        Mushroom: 0,
-        Pommes: 0,
-        "Onion rings": 0,
-      });
+      setExtras(
+        EXTRAS.burgers.reduce((acc, extra) => {
+          acc[extra.name] = 0;
+          return acc;
+        }, {} as Record<string, number>)
+      );
       setAmount(1);
     }
   }, [isOpen]);
@@ -115,7 +80,7 @@ const BurgerModal: FC<BurgerModalProps> = ({ isOpen, onClose, product }) => {
             return (
               total +
               extras[key] *
-                (EXTRAS.find((extra) => extra.name === key)?.price || 0)
+                (EXTRAS.burgers.find((extra) => extra.name === key)?.price || 0)
             );
           }, 0)) *
         amount
@@ -133,7 +98,7 @@ const BurgerModal: FC<BurgerModalProps> = ({ isOpen, onClose, product }) => {
       {/* CHOOSE INGREDIENTS */}
       <div className="w-1/2 p-4">
         <h3 className="text-lg font-bold mb-4 border-b">Choose Ingredients</h3>
-        {EXTRAS.map((extra) => (
+        {EXTRAS.burgers.map((extra) => (
           <div key={extra.name} className="flex items-center mb-4">
             <img
               src={extra.image}

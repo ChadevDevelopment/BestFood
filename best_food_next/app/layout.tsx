@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer/footer";
+import { Toaster } from "react-hot-toast";
+import { CartProvider } from "@/context/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
+        <CartProvider>
+          <Toaster />
+          <Header />
           <div className="pt-32">{children}</div>
-        <Footer />
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

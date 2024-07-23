@@ -7,6 +7,7 @@ import FishModal from "../modals/FishModal";
 import BurgerModal from "../modals/BurgerModal";
 import WithAlcoholModal from "../modals/WithAlcoholModal";
 import WithoutAlcoholModal from "../modals/WithoutAlcoholModal";
+import { EXTRAS } from "@/config/extrasConfig";
 
 const getAllProducts = () => {
   const { pizzas, burgers, fishs, drinkswithalcohols, drinkswithoutalcohol } =
@@ -52,6 +53,7 @@ const ProductList = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           product={selectedProduct}
+          extras={EXTRAS.pizzas}
         />
       )}
 
@@ -60,6 +62,7 @@ const ProductList = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           product={selectedProduct}
+          extras={EXTRAS.fishs}
         />
       )}
 
@@ -68,6 +71,7 @@ const ProductList = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           product={selectedProduct}
+          extras={EXTRAS.burgers}
         />
       )}
 
@@ -76,6 +80,7 @@ const ProductList = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           product={selectedProduct}
+          extras={EXTRAS.drinkswithalcohols}
         />
       )}
 
@@ -85,6 +90,7 @@ const ProductList = () => {
             isOpen={isModalOpen}
             onClose={handleCloseModal}
             product={selectedProduct}
+            extras={EXTRAS.drinkswithoutalcohol}
           />
         )}
     </>

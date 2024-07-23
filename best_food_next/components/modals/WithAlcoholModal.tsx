@@ -2,34 +2,13 @@
 import { FC, useEffect, useState } from "react";
 import Modal from "./Modal";
 import { Product } from "../productlist/ProductListItem";
-
-const EXTRAS = [
-  {
-    name: "Lime",
-    price: 2.0,
-    image: "./chooseIngredients/alcoholIngredients/lime.png",
-  },
-  {
-    name: "Melon",
-    price: 5.0,
-    image: "./chooseIngredients/alcoholIngredients/melon.jpg",
-  },
-  {
-    name: "Olives",
-    price: 2.0,
-    image: "./chooseIngredients/alcoholIngredients/olives.jpeg",
-  },
-  {
-    name: "Watermelon",
-    price: 5.0,
-    image: "./chooseIngredients/alcoholIngredients/watermelon.jpeg",
-  },
-];
+import { EXTRAS } from "@/config/extrasConfig";
 
 interface WithAlcoholModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: Product;
+  extras: { name: string; price: number }[];
 }
 
 const WithAlcoholModal: FC<WithAlcoholModalProps> = ({
@@ -37,28 +16,22 @@ const WithAlcoholModal: FC<WithAlcoholModalProps> = ({
   onClose,
   product,
 }) => {
-  const [extras, setExtras] = useState<Record<string, number>>({
-    "Budweiser Beer": 0,
-    "Guinness Beer": 0,
-    "Heineken Beer": 0,
-    Lime: 0,
-    Melon: 0,
-    Olives: 0,
-    Watermelon: 0,
-  });
+  const [extras, setExtras] = useState<Record<string, number>>(
+    EXTRAS.drinkswithalcohols.reduce((acc, extra) => {
+      acc[extra.name] = 0;
+      return acc;
+    }, {} as Record<string, number>)
+  );
   const [amount, setAmount] = useState(1);
 
   useEffect(() => {
     if (isOpen) {
-      setExtras({
-        "Budweiser Beer": 0,
-        "Guinness Beer": 0,
-        "Heineken Beer": 0,
-        Lime: 0,
-        Melon: 0,
-        Olives: 0,
-        Watermelon: 0,
-      });
+      setExtras(
+        EXTRAS.drinkswithalcohols.reduce((acc, extra) => {
+          acc[extra.name] = 0;
+          return acc;
+        }, {} as Record<string, number>)
+      );
       setAmount(1);
     }
   }, [isOpen]);
@@ -112,7 +85,8 @@ const WithAlcoholModal: FC<WithAlcoholModalProps> = ({
             return (
               total +
               extras[key] *
-                (EXTRAS.find((extra) => extra.name === key)?.price || 0)
+                (EXTRAS.drinkswithalcohols.find((extra) => extra.name === key)
+                  ?.price || 0)
             );
           }, 0)) *
         amount
@@ -130,7 +104,7 @@ const WithAlcoholModal: FC<WithAlcoholModalProps> = ({
       {/* CHOOSE INGREDIENTS */}
       <div className="w-1/2 p-4">
         <h3 className="text-lg font-bold mb-4 border-b">Choose Ingredients</h3>
-        {EXTRAS.map((extra) => (
+        {EXTRAS.drinkswithalcohols.map((extra) => (
           <div key={extra.name} className="flex items-center mb-4">
             <img
               src={extra.image}

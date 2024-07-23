@@ -2,46 +2,32 @@
 import { FC, useEffect, useState } from "react";
 import Modal from "./Modal";
 import { Product } from "../productlist/ProductListItem";
-
-const EXTRAS = [
-  {
-    name: "Akdeniz Sose",
-    price: 2.0,
-    image: "./chooseIngredients/fishIngredients/akdenizsosu.png",
-  },
-  {
-    name: "Salat",
-    price: 5.0,
-    image: "./chooseIngredients/fishIngredients/salata.jpeg",
-  },
-  {
-    name: "Teriyaki Sose",
-    price: 2.0,
-    image: "./chooseIngredients/fishIngredients/teriyakisos.jpg",
-  },
-];
+import { EXTRAS } from "@/config/extrasConfig";
 
 interface FishModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: Product;
+  extras: { name: string; price: number }[];
 }
 
 const FishModal: FC<FishModalProps> = ({ isOpen, onClose, product }) => {
-  const [extras, setExtras] = useState<Record<string, number>>({
-    "Akdeniz Sose": 0,
-    Salat: 0,
-    "Teriyaki Sose": 0,
-  });
+  const [extras, setExtras] = useState<Record<string, number>>(
+    EXTRAS.fishs.reduce((acc, extra) => {
+      acc[extra.name] = 0;
+      return acc;
+    }, {} as Record<string, number>)
+  );
   const [amount, setAmount] = useState(1);
 
   useEffect(() => {
     if (isOpen) {
-      setExtras({
-        "Akdeniz Sose": 0,
-        Salat: 0,
-        "Teriyaki Sose": 0,
-      });
+      setExtras(
+        EXTRAS.fishs.reduce((acc, extra) => {
+          acc[extra.name] = 0;
+          return acc;
+        }, {} as Record<string, number>)
+      );
       setAmount(1);
     }
   }, [isOpen]);
@@ -64,7 +50,7 @@ const FishModal: FC<FishModalProps> = ({ isOpen, onClose, product }) => {
             return (
               total +
               extras[key] *
-                (EXTRAS.find((extra) => extra.name === key)?.price || 0)
+                (EXTRAS.fishs.find((extra) => extra.name === key)?.price || 0)
             );
           }, 0)) *
         amount
@@ -112,7 +98,7 @@ const FishModal: FC<FishModalProps> = ({ isOpen, onClose, product }) => {
       {/* CHOOSE INGREDIENTS */}
       <div className="w-1/2 p-4">
         <h3 className="text-lg font-bold mb-4 border-b">Choose Ingredients</h3>
-        {EXTRAS.map((extra) => (
+        {EXTRAS.fishs.map((extra) => (
           <div key={extra.name} className="flex items-center mb-4">
             <img
               src={extra.image}
