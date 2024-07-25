@@ -1,0 +1,60 @@
+# #  bu dosya birden fazla Docker konteyner i yurutebilmek icin. Yani django ver MySQL veritabinimin ayni anda baslatabilmek ve yapilandirabilmek icin.
+# # Docker compose un surumu. (3.8)
+# version: "3.8"
+
+# services:
+#   web:
+#     build: ./best_food_django
+#     container_name: best_food_web
+#     command: python manage.py runserver 0.0.0.0:8000
+#     volumes:
+#       - ./best_food_django/:/usr/src/best_food_django/
+#     ports:
+#       - "8000:8000"
+#     env_file:
+#       - ./.env.dev
+#     depends_on:
+#       - db
+
+#   db:
+#     # image: mysql:8.0
+#     image: mysql:latest
+#     container_name: best_food_db
+#     environment:
+#       - MYSQL_ROOT_PASSWORD=123456
+#       - MYSQL_USER=bestfoodchadev
+#       - MYSQL_PASSWORD=bestfoodchadevpassword
+#       - MYSQL_DB=bestfood
+#     ports:
+#       - "3306:3306"
+#     volumes:
+#       - db_data:/var/lib/mysql/data/
+
+# volumes:
+#   db_data:
+
+version: "3.8"
+
+services:
+  web:
+    build: ./best_food_django
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./best_food_django/:/usr/src/best_food_django/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    container_name: best_food_db
+    volumes:
+      - bestfood:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=bestfood
+
+volumes:
+  bestfood:
