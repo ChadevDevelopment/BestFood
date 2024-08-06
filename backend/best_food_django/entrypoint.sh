@@ -12,6 +12,7 @@ if [ "$DATABASE" = "mysql" ]; then
     echo "The database is up and running :-D"
 fi
 
+python manage.py makemigrations
 # Django migrate komutunu çalıştırır
 python manage.py migrate
 
